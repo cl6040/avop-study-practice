@@ -263,7 +263,10 @@ function reviewNextMcqMistake() {
   renderMcqQuestion();
 }
 
-function showSection(section) {
+const STUDY_SECTIONS = new Set(["mcq", "picture", "map", "da-map"]);
+
+function showSection(section, { updateUrl = true } = {}) {
+  if (!STUDY_SECTIONS.has(section)) section = "mcq";
   document.body.dataset.section = section;
   document.querySelector("#multiple-choice-practice").hidden = section !== "mcq";
   document.querySelector("#picture-practice").hidden = section !== "picture";
@@ -278,6 +281,12 @@ function showSection(section) {
   if (section === "picture") window.pictureQuiz?.refreshProgress();
   if (section === "map") window.mapQuiz?.refreshProgress();
   if (section === "da-map") window.daMapQuiz?.refreshProgress();
+  if (updateUrl) {
+    const url = new URL(window.location.href);
+    if (section === "mcq") url.searchParams.delete("section");
+    else url.searchParams.set("section", section);
+    window.history.replaceState({}, "", url);
+  }
   window.scrollTo({ top: 0, behavior: "instant" });
 }
 
@@ -291,4 +300,5 @@ mcqElements.review.addEventListener("click", reviewNextMcqMistake);
 document.querySelector("#mcq-retry").addEventListener("click", () => chooseSet(mcqState.setIndex));
 
 chooseSet(0);
-showSection("mcq");
+const requestedSection = new URLSearchParams(window.location.search).get("section");
+showSection(STUDY_SECTIONS.has(requestedSection) ? requestedSection : "mcq", { updateUrl: false });
