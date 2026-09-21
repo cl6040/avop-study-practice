@@ -10,7 +10,6 @@ function applyContentEditionLabels() {
   const daShortEdition = AVOP_CONTENT.daMapEdition.replace(/\s+\d{4}$/, "");
   const daName = `D/A ${daShortEdition}`;
 
-  document.querySelector("#da-map-tab").textContent = daName;
   document.querySelector("#da-map-heading").textContent = `${daName} map practice`;
   document.querySelector("#da-map-results-heading").textContent = `${daName} map complete`;
   document.querySelector("#content-editions").textContent =

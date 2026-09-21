@@ -19,6 +19,7 @@
     <script src="mcq.js" defer></script>
     <script src="map.js" defer></script>
     <script src="da-map.js" defer></script>
+    <script src="study.js" defer></script>
     <title>AVOP Study Practice</title>
   </head>
   <body data-section="mcq">
@@ -42,8 +43,9 @@
     <nav class="section-tabs" aria-label="Study sections" role="tablist">
       <button class="section-tab active" type="button" role="tab" aria-selected="true" data-section-target="mcq"><span class="tab-label-wide">Multiple choice</span><span class="tab-label-compact">Quiz</span></button>
       <button class="section-tab" type="button" role="tab" aria-selected="false" data-section-target="picture"><span class="tab-label-wide">Picture practice</span><span class="tab-label-compact">Pictures</span></button>
-      <button class="section-tab" type="button" role="tab" aria-selected="false" data-section-target="map">D</button>
-      <button id="da-map-tab" class="section-tab" type="button" role="tab" aria-selected="false" data-section-target="da-map">D/A April</button>
+      <button class="section-tab" type="button" role="tab" aria-selected="false" data-section-target="map">D Map</button>
+      <button id="da-map-tab" class="section-tab" type="button" role="tab" aria-selected="false" data-section-target="da-map">D/A Map</button>
+      <button class="section-tab study-tab" type="button" role="tab" aria-selected="false" data-section-target="study">Study</button>
     </nav>
 
     <main id="study-content" class="app-shell">
@@ -190,10 +192,18 @@
         </div>
 
         <div class="map-layout">
-          <div class="map-viewport" aria-label="Blank AVOP testing map. Scroll horizontally to inspect all markers.">
-            <div class="map-canvas">
-              <img src="assets/avop-testing-map.png" alt="Blank 2026 YVR D AVOP testing map" draggable="false" />
-              <div id="map-markers" class="map-markers"></div>
+          <div class="map-viewer">
+            <div class="map-zoom-bar" data-zoom-target="d-practice-canvas" aria-label="D map zoom controls">
+              <button class="secondary-button" type="button" data-zoom-action="out" aria-label="Zoom D map out">−</button>
+              <output aria-live="polite">100%</output>
+              <button class="secondary-button" type="button" data-zoom-action="in" aria-label="Zoom D map in">+</button>
+              <button class="text-button" type="button" data-zoom-action="fit">Fit map</button>
+            </div>
+            <div class="map-viewport" aria-label="Blank AVOP testing map. Pan the map and use the zoom controls to inspect all markers.">
+              <div id="d-practice-canvas" class="map-canvas">
+                <img src="assets/avop-testing-map.png" alt="Blank 2026 YVR D AVOP testing map" draggable="false" />
+                <div id="map-markers" class="map-markers"></div>
+              </div>
             </div>
           </div>
 
@@ -256,10 +266,18 @@
         </div>
 
         <div class="map-layout">
-          <div class="map-viewport" aria-label="Blank April D/A testing map. Scroll horizontally to inspect all markers.">
-            <div class="map-canvas">
-              <img src="assets/da-april-testing-map.png" alt="Blank April 2026 YVR D/A AVOP testing map" draggable="false" />
-              <div id="da-map-markers" class="map-markers"></div>
+          <div class="map-viewer">
+            <div class="map-zoom-bar" data-zoom-target="da-practice-canvas" aria-label="D/A map zoom controls">
+              <button class="secondary-button" type="button" data-zoom-action="out" aria-label="Zoom D/A map out">−</button>
+              <output aria-live="polite">100%</output>
+              <button class="secondary-button" type="button" data-zoom-action="in" aria-label="Zoom D/A map in">+</button>
+              <button class="text-button" type="button" data-zoom-action="fit">Fit map</button>
+            </div>
+            <div class="map-viewport" aria-label="Blank April D/A testing map. Pan the map and use the zoom controls to inspect all markers.">
+              <div id="da-practice-canvas" class="map-canvas">
+                <img src="assets/da-april-testing-map.png" alt="Blank April 2026 YVR D/A AVOP testing map" draggable="false" />
+                <div id="da-map-markers" class="map-markers"></div>
+              </div>
             </div>
           </div>
 
@@ -307,6 +325,60 @@
         <div id="da-map-key-panel" class="map-key-panel" hidden>
           <img src="assets/da-april-training-map.png" alt="Labeled April 2026 YVR D/A AVOP training map answer key" />
         </div>
+      </section>
+
+      <section id="study-reference" class="study-section study-reference" aria-labelledby="study-heading" hidden>
+        <header class="study-hero">
+          <div>
+            <p class="step">COMPLETE ANSWER REFERENCE</p>
+            <h2 id="study-heading">Study and memorize</h2>
+            <p>Review every picture label, multiple-choice answer, and labeled map before testing yourself.</p>
+          </div>
+          <span class="study-badge">Answers shown</span>
+        </header>
+
+        <nav class="study-jump-nav" aria-label="Study reference sections">
+          <a href="#study-pictures">Pictures</a>
+          <a href="#study-mcq">Questions</a>
+          <a href="#study-d-map">D Map</a>
+          <a href="#study-da-map">D/A Map</a>
+        </nav>
+
+        <section id="study-pictures" class="study-block" aria-labelledby="study-pictures-heading">
+          <div class="study-block-heading">
+            <div><p class="step">25 ANSWERS</p><h2 id="study-pictures-heading">Picture answer key</h2></div>
+            <p>Each image is paired with its correct label.</p>
+          </div>
+          <div id="study-picture-grid" class="study-picture-grid"></div>
+        </section>
+
+        <section id="study-mcq" class="study-block" aria-labelledby="study-mcq-heading">
+          <div class="study-block-heading">
+            <div><p class="step">FULL QUESTION BANK</p><h2 id="study-mcq-heading">Multiple-choice answers</h2></div>
+            <label class="study-search"><span class="sr-only">Find a question or answer</span><input id="study-answer-search" type="search" placeholder="Find a question or answer…" autocomplete="off" /></label>
+          </div>
+          <div id="study-answer-list" class="study-answer-list"></div>
+        </section>
+
+        <section id="study-d-map" class="study-block" aria-labelledby="study-d-map-heading">
+          <div class="study-block-heading"><div><p class="step">LABELED ANSWER MAP</p><h2 id="study-d-map-heading">D Map</h2></div><p>Pan and zoom to memorize every label.</p></div>
+          <div class="study-map-viewer map-viewer">
+            <div class="map-zoom-bar" data-zoom-target="study-d-canvas" aria-label="D answer map zoom controls">
+              <button class="secondary-button" type="button" data-zoom-action="out" aria-label="Zoom D answer map out">−</button><output aria-live="polite">100%</output><button class="secondary-button" type="button" data-zoom-action="in" aria-label="Zoom D answer map in">+</button><button class="text-button" type="button" data-zoom-action="fit">Fit map</button>
+            </div>
+            <div class="map-viewport study-map-viewport"><div id="study-d-canvas" class="study-map-canvas"><img src="assets/avop-training-map.png" alt="Labeled D AVOP training map answer key" draggable="false" /></div></div>
+          </div>
+        </section>
+
+        <section id="study-da-map" class="study-block" aria-labelledby="study-da-map-heading">
+          <div class="study-block-heading"><div><p class="step">LABELED ANSWER MAP</p><h2 id="study-da-map-heading">D/A Map</h2></div><p>Pan and zoom to memorize every label.</p></div>
+          <div class="study-map-viewer map-viewer">
+            <div class="map-zoom-bar" data-zoom-target="study-da-canvas" aria-label="D/A answer map zoom controls">
+              <button class="secondary-button" type="button" data-zoom-action="out" aria-label="Zoom D/A answer map out">−</button><output aria-live="polite">100%</output><button class="secondary-button" type="button" data-zoom-action="in" aria-label="Zoom D/A answer map in">+</button><button class="text-button" type="button" data-zoom-action="fit">Fit map</button>
+            </div>
+            <div class="map-viewport study-map-viewport"><div id="study-da-canvas" class="study-map-canvas"><img src="assets/da-april-training-map.png" alt="Labeled D/A AVOP training map answer key" draggable="false" /></div></div>
+          </div>
+        </section>
       </section>
     </main>
 

@@ -263,7 +263,7 @@ function reviewNextMcqMistake() {
   renderMcqQuestion();
 }
 
-const STUDY_SECTIONS = new Set(["mcq", "picture", "map", "da-map"]);
+const STUDY_SECTIONS = new Set(["mcq", "picture", "map", "da-map", "study"]);
 
 function showSection(section, { updateUrl = true } = {}) {
   if (!STUDY_SECTIONS.has(section)) section = "mcq";
@@ -272,6 +272,7 @@ function showSection(section, { updateUrl = true } = {}) {
   document.querySelector("#picture-practice").hidden = section !== "picture";
   document.querySelector("#map-practice").hidden = section !== "map";
   document.querySelector("#da-map-practice").hidden = section !== "da-map";
+  document.querySelector("#study-reference").hidden = section !== "study";
   document.querySelectorAll("[data-section-target]").forEach((button) => {
     const active = button.dataset.sectionTarget === section;
     button.classList.toggle("active", active);
@@ -281,6 +282,7 @@ function showSection(section, { updateUrl = true } = {}) {
   if (section === "picture") window.pictureQuiz?.refreshProgress();
   if (section === "map") window.mapQuiz?.refreshProgress();
   if (section === "da-map") window.daMapQuiz?.refreshProgress();
+  if (section === "study") window.studyGuide?.refreshProgress();
   if (updateUrl) {
     const url = new URL(window.location.href);
     if (section === "mcq") url.searchParams.delete("section");

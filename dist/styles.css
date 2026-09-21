@@ -161,6 +161,10 @@ button:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
 .map-legend .apron, .map-category.apron { background: #94c5cd; }
 .map-legend .runup, .map-category.runup { background: #aae2af; }
 .map-layout { display: grid; grid-template-columns: minmax(0, 1fr) 19rem; align-items: start; gap: 0.9rem; }
+.map-viewer { min-width: 0; }
+.map-zoom-bar { display: flex; align-items: center; justify-content: flex-end; gap: 0.45rem; margin-bottom: 0.45rem; }
+.map-zoom-bar button { min-width: 2.75rem; min-height: 2.55rem; padding: 0.42rem 0.65rem; }
+.map-zoom-bar output { min-width: 3.6rem; color: var(--navy); font-size: 0.85rem; font-weight: 900; text-align: center; }
 .map-viewport { overflow: auto; border: 2px solid var(--navy); border-radius: 1rem; background: #eef2f3; box-shadow: var(--shadow); }
 .map-canvas { position: relative; width: 100%; min-width: 62rem; line-height: 0; }
 .map-canvas > img { display: block; width: 100%; height: auto; user-select: none; }
@@ -198,6 +202,38 @@ button:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
 .map-key-panel { overflow: auto; padding: 0.5rem; }
 .map-key-panel img { display: block; width: 100%; min-width: 62rem; height: auto; border-radius: 0.65rem; }
 
+.study-reference { display: grid; gap: 1rem; }
+.study-hero, .study-block { border: 1px solid var(--line); border-radius: 1rem; background: var(--white); box-shadow: var(--shadow); }
+.study-hero { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.15rem; }
+.study-hero h2, .study-hero p { margin-bottom: 0; }
+.study-hero > div > p:last-child { margin-top: 0.35rem; color: var(--muted); }
+.study-badge { flex: 0 0 auto; border-radius: 999px; background: var(--correct-soft); color: var(--correct); padding: 0.45rem 0.72rem; font-size: 0.8rem; font-weight: 900; }
+.study-jump-nav { display: flex; gap: 0.45rem; overflow-x: auto; border: 1px solid var(--line); border-radius: 0.85rem; background: rgba(255,255,255,0.96); padding: 0.45rem; box-shadow: 0 8px 24px rgba(7,28,44,0.08); scrollbar-width: none; }
+.study-jump-nav::-webkit-scrollbar { display: none; }
+.study-jump-nav a { flex: 1 0 auto; border-radius: 0.6rem; background: var(--sky); color: var(--navy); padding: 0.55rem 0.75rem; font-size: 0.86rem; font-weight: 850; text-align: center; text-decoration: none; }
+.study-jump-nav a:hover { background: var(--yellow-soft); }
+.study-block { scroll-margin-top: 4.5rem; padding: 1rem; }
+.study-block-heading { display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 0.8rem; }
+.study-block-heading h2, .study-block-heading p { margin-bottom: 0; }
+.study-block-heading > p { max-width: 30rem; color: var(--muted); font-size: 0.86rem; text-align: right; }
+.study-picture-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; }
+.study-picture-card { display: grid; min-width: 0; overflow: hidden; margin: 0; border: 1px solid var(--line); border-radius: 0.8rem; background: var(--ice); grid-template-rows: 9rem auto; }
+.study-picture-card img { width: 100%; height: 100%; background: var(--white); object-fit: contain; }
+.study-picture-card figcaption { display: grid; min-height: 3.4rem; place-items: center; padding: 0.55rem; color: var(--navy); font-size: 0.82rem; font-weight: 850; line-height: 1.25; text-align: center; }
+.study-search { width: min(100%, 22rem); }
+.study-search input { width: 100%; min-height: 2.75rem; border: 2px solid var(--line); border-radius: 0.65rem; background: var(--ice); padding: 0.6rem 0.75rem; color: var(--ink); font: inherit; font-size: 1rem; }
+.study-search input:focus { outline: 3px solid var(--yellow); outline-offset: 2px; border-color: var(--navy-soft); }
+.study-answer-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem; }
+.study-answer-card { border: 1px solid var(--line); border-radius: 0.75rem; background: var(--ice); padding: 0.8rem; }
+.study-answer-meta { margin: 0 0 0.35rem; color: var(--muted); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.03em; text-transform: uppercase; }
+.study-answer-card h3 { margin: 0 0 0.65rem; color: var(--navy); font-size: 0.98rem; line-height: 1.35; }
+.study-answer-value { display: grid; gap: 0.2rem; margin: 0; border-left: 0.25rem solid var(--correct); background: var(--correct-soft); padding: 0.55rem 0.65rem; color: var(--correct); font-weight: 800; }
+.study-answer-value span { font-size: 0.68rem; letter-spacing: 0.09em; text-transform: uppercase; }
+.study-map-canvas { width: 100%; min-width: 75rem; line-height: 0; }
+#study-da-canvas { min-width: 140rem; }
+.study-map-canvas img { display: block; width: 100%; height: auto; user-select: none; }
+.study-map-viewport { max-height: 72vh; }
+
 footer { background: var(--navy); color: #a9c0cb; padding: 1rem; text-align: center; }
 footer p { margin: 0; font-size: 0.8rem; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
@@ -210,8 +246,8 @@ footer p { margin: 0; font-size: 0.8rem; }
   .map-layout { grid-template-columns: 1fr; }
   .map-viewport { max-height: 62vh; }
   .map-answer-panel { position: sticky; z-index: 12; bottom: 0.5rem; top: auto; }
-  #da-map-practice .map-layout { grid-template-columns: minmax(0, 1fr) 15rem; }
-  #da-map-practice .map-answer-panel { position: sticky; top: 4.7rem; bottom: auto; }
+  #map-practice .map-layout, #da-map-practice .map-layout { grid-template-columns: minmax(0, 1fr) 15rem; }
+  #map-practice .map-answer-panel, #da-map-practice .map-answer-panel { position: sticky; top: 4.7rem; bottom: auto; }
   .map-answer-panel h3 { margin: 0.65rem 0; }
   .map-answer-actions { margin-top: 0.55rem; }
   .header-stats strong { font-size: 1.2rem; }
@@ -230,6 +266,7 @@ footer p { margin: 0; font-size: 0.8rem; }
   .section-tabs { width: calc(100% - 1rem); margin-top: 0.45rem; }
   .section-tab { padding: 0.52rem 0.45rem; font-size: 0.86rem; }
   .mcq-card { min-height: 21rem; }
+  .study-picture-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (max-width: 580px) {
@@ -269,6 +306,8 @@ footer p { margin: 0; font-size: 0.8rem; }
   .map-viewport { max-height: 50vh; }
   .map-actions, .map-results { align-items: stretch; flex-direction: column; }
   .map-actions > div, .map-results .result-actions { display: grid; grid-template-columns: 1fr 1fr; }
+  .study-picture-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .study-answer-list { grid-template-columns: 1fr; }
 }
 
 /* Narrow screens use a fixed study dock: the picture and labels never separate. */
@@ -436,10 +475,34 @@ footer p { margin: 0; font-size: 0.8rem; }
   .map-viewport, #da-map-practice .map-viewport { max-height: 52dvh; border-radius: 0.8rem; overscroll-behavior: contain; }
   #map-practice .map-canvas { min-width: 90rem; }
   #da-map-practice .map-canvas { min-width: 175rem; }
+  #study-d-canvas { min-width: 90rem; }
+  #study-da-canvas { min-width: 175rem; }
   .map-marker { touch-action: manipulation; }
   .map-marker.active { transform: translate(-50%, -50%) scale(1.3); }
   .map-actions, .map-results { gap: 0.65rem; padding: 0.7rem; }
   .map-actions p { font-size: 0.8rem; }
+
+  .map-zoom-bar { justify-content: stretch; gap: 0.35rem; margin-bottom: 0.35rem; }
+  .map-zoom-bar button { min-height: 2.75rem; }
+  .map-zoom-bar .text-button { flex: 1; }
+  .map-zoom-bar output { min-width: 3.1rem; }
+  .study-reference { gap: 0.65rem; }
+  .study-hero, .study-block { border-radius: 0.8rem; }
+  .study-hero { align-items: flex-start; padding: 0.75rem; }
+  .study-hero > div > p:last-child { font-size: 0.82rem; }
+  .study-badge { padding: 0.35rem 0.5rem; font-size: 0.7rem; }
+  .study-jump-nav { gap: 0.3rem; padding: 0.32rem; }
+  .study-jump-nav a { min-height: 2.6rem; padding: 0.55rem 0.65rem; }
+  .study-block { padding: 0.7rem; }
+  .study-block-heading { align-items: stretch; flex-direction: column; gap: 0.45rem; margin-bottom: 0.65rem; }
+  .study-block-heading > p { text-align: left; }
+  .study-search { width: 100%; }
+  .study-picture-grid { gap: 0.5rem; }
+  .study-picture-card { grid-template-rows: 7rem auto; }
+  .study-picture-card figcaption { min-height: 3.2rem; padding: 0.45rem; font-size: 0.76rem; }
+  .study-answer-list { gap: 0.5rem; }
+  .study-answer-card { padding: 0.7rem; }
+  .study-map-viewport { max-height: 58dvh; }
 
   footer { padding: 0.75rem 0.6rem max(0.75rem, env(safe-area-inset-bottom)); }
   footer p { font-size: 0.7rem; }
