@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#071c2c" />
+    <meta
+      name="description"
+      content="Practice identifying YVR airside signs and markings with a drag-and-drop picture quiz."
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23071c2c'/%3E%3Cpath d='M9 36h46M15 47h34' stroke='%23f5b82e' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M28 11h8v17h11v7H17v-7h11z' fill='%23eef7f9'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="content-config.js" defer></script>
+    <script src="app.js" defer></script>
+    <script src="mcq.js" defer></script>
+    <script src="map.js" defer></script>
+    <script src="da-map.js" defer></script>
+    <title>AVOP Study Practice</title>
+  </head>
+  <body data-section="mcq">
+    <a class="skip-link" href="#study-content">Skip to practice</a>
+
+    <header class="site-header">
+      <div>
+        <p class="eyebrow">YVR AIRSIDE TRAFFIC DIRECTIVES</p>
+        <h1>AVOP study practice</h1>
+        <p class="intro">Build confidence with multiple-choice, picture-identification and typed map practice.</p>
+      </div>
+      <div class="header-stats" aria-label="Current practice progress">
+        <div>
+          <strong id="placed-count">0</strong>
+          <span id="progress-label">of 25 answered</span>
+        </div>
+        <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+      </div>
+    </header>
+
+    <nav class="section-tabs" aria-label="Study sections" role="tablist">
+      <button class="section-tab active" type="button" role="tab" aria-selected="true" data-section-target="mcq">Multiple choice</button>
+      <button class="section-tab" type="button" role="tab" aria-selected="false" data-section-target="picture">Picture practice</button>
+      <button class="section-tab" type="button" role="tab" aria-selected="false" data-section-target="map">D</button>
+      <button id="da-map-tab" class="section-tab" type="button" role="tab" aria-selected="false" data-section-target="da-map">D/A April</button>
+    </nav>
+
+    <main id="study-content" class="app-shell">
+      <section id="multiple-choice-practice" class="study-section mcq-section" aria-labelledby="mcq-heading">
+        <div class="mcq-toolbar">
+          <div>
+            <p class="step">25 QUESTIONS</p>
+            <h2 id="mcq-heading">Multiple-choice practice</h2>
+            <p class="mcq-intro">Exam-style choices, scenarios, lists, fill-in-the-blank prompts and image recognition.</p>
+          </div>
+          <div class="set-picker" aria-label="Choose question set">
+            <span>Set</span>
+            <button class="set-button active" type="button" data-set="0" aria-pressed="true">1</button>
+            <button class="set-button" type="button" data-set="1" aria-pressed="false">2</button>
+            <button class="set-button" type="button" data-set="2" aria-pressed="false">3</button>
+            <button class="set-button" type="button" data-set="3" aria-pressed="false">4</button>
+            <button class="set-button" type="button" data-set="4" aria-pressed="false">5</button>
+          </div>
+        </div>
+
+        <article id="mcq-card" class="mcq-card">
+          <div class="mcq-meta">
+            <span id="mcq-counter">Question 1 of 25</span>
+            <span id="mcq-state" class="state-pill">Not answered</span>
+          </div>
+          <h3 id="mcq-question"></h3>
+          <img id="mcq-image" class="mcq-question-image" alt="" hidden />
+          <div id="mcq-options" class="mcq-options" role="radiogroup" aria-labelledby="mcq-question"></div>
+          <p id="mcq-correction" class="mcq-correction" hidden></p>
+        </article>
+
+        <div class="mcq-navigation">
+          <button id="mcq-previous" class="secondary-button" type="button">← Previous</button>
+          <div id="mcq-dots" class="mcq-dots" aria-label="Question progress"></div>
+          <button id="mcq-next" class="primary-button" type="button">Next →</button>
+        </div>
+
+        <div class="mcq-actions">
+          <p id="mcq-hint">Answer all 25 questions to unlock your score.</p>
+          <div>
+            <button id="mcq-reset" class="text-button" type="button">Clear set</button>
+            <button id="mcq-submit" class="primary-button" type="button" disabled>Score this set</button>
+          </div>
+        </div>
+
+        <section id="mcq-results" class="mcq-results" aria-labelledby="mcq-results-heading" hidden tabindex="-1">
+          <div class="score-ring" aria-hidden="true"><strong id="mcq-score">0</strong><span>/ 25</span></div>
+          <div>
+            <p class="step">RESULT</p>
+            <h2 id="mcq-results-heading">Set complete</h2>
+            <p id="mcq-result-message"></p>
+          </div>
+          <div class="result-actions">
+            <button id="mcq-review" class="secondary-button" type="button">Review next mistake</button>
+            <button id="mcq-retry" class="secondary-button" type="button">Try this set again</button>
+          </div>
+        </section>
+      </section>
+
+      <section id="picture-practice" class="study-section" hidden>
+      <section id="quiz-workspace" class="quiz-workspace" aria-labelledby="workspace-heading">
+        <div class="carousel-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="step">CURRENT PICTURE</p>
+              <h2 id="workspace-heading"><span id="picture-counter">1 of 25</span></h2>
+            </div>
+            <span id="picture-state" class="state-pill">Not answered</span>
+          </div>
+
+          <div class="carousel-row">
+            <button id="previous-button" class="nav-button" type="button" aria-label="Previous picture">←</button>
+            <article id="picture-card" class="picture-card">
+              <img id="quiz-image" src="" alt="Airside sign or surface marking to identify" draggable="false" />
+              <div id="drop-zone" class="drop-zone" aria-live="polite">
+                <span class="drop-placeholder">Choose a label from the tray</span>
+              </div>
+              <p id="answer-note" class="answer-note" hidden></p>
+            </article>
+            <button id="next-button" class="nav-button" type="button" aria-label="Next picture">→</button>
+          </div>
+
+          <div class="carousel-footer">
+            <div class="dot-track" id="dot-track" aria-label="Picture progress"></div>
+            <button id="clear-current-button" class="text-button" type="button">Clear this answer</button>
+          </div>
+        </div>
+
+        <aside class="label-panel" aria-labelledby="labels-heading">
+          <div class="panel-heading">
+            <div>
+              <p class="step">MAGNET TRAY</p>
+              <h2 id="labels-heading">Choose the match</h2>
+            </div>
+            <span id="labels-left" class="label-count">25 left</span>
+          </div>
+          <p class="tray-help">Click a label to place it and move to the next unanswered picture. You can also drag it onto the picture.</p>
+          <label class="search-field">
+            <span class="sr-only">Find a label</span>
+            <input id="label-search" type="search" placeholder="Find a label…" autocomplete="off" />
+          </label>
+          <div id="label-bank" class="label-bank" aria-live="polite"></div>
+        </aside>
+      </section>
+
+      <section class="action-bar" aria-labelledby="finish-heading">
+        <div>
+          <h2 id="finish-heading">Ready to check?</h2>
+          <p id="submit-hint">Match all 25 pictures to unlock your score.</p>
+        </div>
+        <div class="action-buttons">
+          <button id="clear-button" class="text-button" type="button">Clear all</button>
+          <button id="submit-button" class="primary-button" type="button" disabled>Get my score</button>
+        </div>
+      </section>
+
+      <section id="results" class="results" aria-labelledby="results-heading" hidden tabindex="-1">
+        <div class="score-ring" aria-hidden="true">
+          <strong id="score-number">0</strong>
+          <span>/ 25</span>
+        </div>
+        <div class="result-copy">
+          <p class="step">RESULT</p>
+          <h2 id="results-heading">Your score</h2>
+          <p id="result-message"></p>
+        </div>
+        <div class="result-actions">
+          <button id="review-button" class="secondary-button" type="button">Review next mistake</button>
+          <button id="retry-button" class="secondary-button" type="button">Try again</button>
+        </div>
+      </section>
+      </section>
+
+      <section id="map-practice" class="study-section map-section" aria-labelledby="map-heading" hidden>
+        <div class="map-toolbar">
+          <div>
+            <p class="step">85 TYPED ANSWERS</p>
+            <h2 id="map-heading">D map practice</h2>
+            <p>Choose a blank coloured box, type its label, then press Enter to continue. Your answer appears on the map.</p>
+          </div>
+          <div class="map-legend" aria-label="Map categories">
+            <span class="taxiway">Taxiways</span><span class="road">Roads</span><span class="runway">Runways</span><span class="apron">Aprons</span><span class="runup">Run-up</span>
+          </div>
+        </div>
+
+        <div class="map-layout">
+          <div class="map-viewport" aria-label="Blank AVOP testing map. Scroll horizontally to inspect all markers.">
+            <div class="map-canvas">
+              <img src="assets/avop-testing-map.png" alt="Blank 2026 YVR D AVOP testing map" draggable="false" />
+              <div id="map-markers" class="map-markers"></div>
+            </div>
+          </div>
+
+          <aside class="map-answer-panel" aria-labelledby="map-prompt">
+            <div class="map-answer-meta">
+              <span id="map-category" class="map-category taxiway">Taxiway</span>
+              <strong id="map-marker-code">T1</strong>
+            </div>
+            <h3 id="map-prompt">Type the label for the highlighted marker</h3>
+            <label class="map-answer-field">
+              <span>Your answer</span>
+              <input id="map-answer" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" />
+            </label>
+            <p id="map-correction" class="map-correction" hidden></p>
+            <div class="map-answer-actions">
+              <button id="map-previous" class="secondary-button" type="button">← Previous</button>
+              <button id="map-save-next" class="primary-button" type="button">Save &amp; next →</button>
+            </div>
+            <p id="map-entry-hint">Answers are not checked until all 85 labels are entered.</p>
+          </aside>
+        </div>
+
+        <div class="map-actions">
+          <p id="map-submit-hint">Type 85 more answers to unlock your score.</p>
+          <div>
+            <button id="map-clear" class="text-button" type="button">Clear map</button>
+            <button id="map-submit" class="primary-button" type="button" disabled>Score map</button>
+          </div>
+        </div>
+
+        <section id="map-results" class="map-results" aria-labelledby="map-results-heading" hidden tabindex="-1">
+          <div class="score-ring" aria-hidden="true"><strong id="map-score">0</strong><span>/ 85</span></div>
+          <div>
+            <p class="step">RESULT</p>
+            <h2 id="map-results-heading">Map complete</h2>
+            <p id="map-result-message"></p>
+          </div>
+          <div class="result-actions">
+            <button id="map-review" class="secondary-button" type="button">Review next mistake</button>
+            <button id="map-answer-key" class="secondary-button" type="button">Show answer map</button>
+            <button id="map-retry" class="secondary-button" type="button">Try again</button>
+          </div>
+        </section>
+
+        <div id="map-key-panel" class="map-key-panel" hidden>
+          <img src="assets/avop-training-map.png" alt="Labeled 2026 YVR D AVOP training map answer key" />
+        </div>
+      </section>
+
+      <section id="da-map-practice" class="study-section map-section" aria-labelledby="da-map-heading" hidden>
+        <div class="map-toolbar">
+          <div>
+            <p class="step">53 TYPED ANSWERS</p>
+            <h2 id="da-map-heading">D/A April map practice</h2>
+            <p>Choose a blank coloured box, type its label, then press Enter to continue. Your answer appears on the map.</p>
+          </div>
+          <div class="map-legend" aria-label="D/A April map categories">
+            <span class="taxiway">Taxiways</span><span class="road">Roads</span><span class="runway">Helipad</span><span class="apron">Aprons</span><span class="runup">Run-up</span>
+          </div>
+        </div>
+
+        <div class="map-layout">
+          <div class="map-viewport" aria-label="Blank April D/A testing map. Scroll horizontally to inspect all markers.">
+            <div class="map-canvas">
+              <img src="assets/da-april-testing-map.png" alt="Blank April 2026 YVR D/A AVOP testing map" draggable="false" />
+              <div id="da-map-markers" class="map-markers"></div>
+            </div>
+          </div>
+
+          <aside class="map-answer-panel" aria-labelledby="da-map-prompt">
+            <div class="map-answer-meta">
+              <span id="da-map-category" class="map-category taxiway">Taxiway</span>
+              <strong id="da-map-marker-code">T1</strong>
+            </div>
+            <h3 id="da-map-prompt">Type the label for the highlighted marker</h3>
+            <label class="map-answer-field">
+              <span>Your answer</span>
+              <input id="da-map-answer" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" />
+            </label>
+            <p id="da-map-correction" class="map-correction" hidden></p>
+            <div class="map-answer-actions">
+              <button id="da-map-previous" class="secondary-button" type="button">← Previous</button>
+              <button id="da-map-save-next" class="primary-button" type="button">Save &amp; next →</button>
+            </div>
+            <p>Answers are not checked until all 53 labels are entered.</p>
+          </aside>
+        </div>
+
+        <div class="map-actions">
+          <p id="da-map-submit-hint">Type 53 more answers to unlock your score.</p>
+          <div>
+            <button id="da-map-clear" class="text-button" type="button">Clear map</button>
+            <button id="da-map-submit" class="primary-button" type="button" disabled>Score map</button>
+          </div>
+        </div>
+
+        <section id="da-map-results" class="map-results" aria-labelledby="da-map-results-heading" hidden tabindex="-1">
+          <div class="score-ring" aria-hidden="true"><strong id="da-map-score">0</strong><span>/ 53</span></div>
+          <div>
+            <p class="step">RESULT</p>
+            <h2 id="da-map-results-heading">D/A April map complete</h2>
+            <p id="da-map-result-message"></p>
+          </div>
+          <div class="result-actions">
+            <button id="da-map-review" class="secondary-button" type="button">Review next mistake</button>
+            <button id="da-map-answer-key" class="secondary-button" type="button">Show answer map</button>
+            <button id="da-map-retry" class="secondary-button" type="button">Try again</button>
+          </div>
+        </section>
+
+        <div id="da-map-key-panel" class="map-key-panel" hidden>
+          <img src="assets/da-april-training-map.png" alt="Labeled April 2026 YVR D/A AVOP training map answer key" />
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Study aid based on the supplied AVOP materials. Not an official examination.</p>
+      <p id="content-editions">ATD: August 2026 · D map: August 2026 · D/A map: April 2026</p>
+    </footer>
+
+    <div id="status" class="sr-only" aria-live="polite"></div>
+  </body>
+</html>
