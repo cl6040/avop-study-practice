@@ -6,7 +6,7 @@ A static, responsive one-page study app built from the supplied AVOP materials. 
 - A carousel-based picture quiz with a searchable magnet tray and scoring after every label is placed.
 - A typed-answer **D** map quiz covering all 85 blanks on the August 2026 testing map.
 - A separate typed-answer **D/A April** map quiz covering its 53 taxiway, road, helipad, apron, and run-up labels.
-- Mobile map zoom controls with zoom in, zoom out, and fit-to-screen views.
+- Mobile map zoom controls with two-finger pinch, zoom in, zoom out, and fit-to-screen views contained inside each map frame.
 - A complete **Study** reference showing all 25 picture labels, all 60 question-bank answers, and both labeled answer maps.
 
 Multiple-choice answers are scored only after all 25 questions are complete. Incorrect answers can then be reviewed one at a time.

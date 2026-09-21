@@ -11,6 +11,8 @@ function createMapZoom(controls) {
   const outButton = controls.querySelector('[data-zoom-action="out"]');
   const inButton = controls.querySelector('[data-zoom-action="in"]');
   let zoom = 1;
+  let pinchStartDistance = 0;
+  let pinchStartZoom = 1;
 
   function applyZoom(nextZoom) {
     const centerX = viewport.scrollWidth ? (viewport.scrollLeft + viewport.clientWidth / 2) / viewport.scrollWidth : 0.5;
@@ -40,6 +42,25 @@ function createMapZoom(controls) {
       viewport.scrollTo({ left: 0, top: 0, behavior: "smooth" });
     }
   });
+
+  viewport.addEventListener("touchstart", (event) => {
+    if (event.touches.length !== 2) return;
+    const [first, second] = event.touches;
+    pinchStartDistance = Math.hypot(second.clientX - first.clientX, second.clientY - first.clientY);
+    pinchStartZoom = zoom;
+  }, { passive: true });
+
+  viewport.addEventListener("touchmove", (event) => {
+    if (event.touches.length !== 2 || !pinchStartDistance) return;
+    event.preventDefault();
+    const [first, second] = event.touches;
+    const distance = Math.hypot(second.clientX - first.clientX, second.clientY - first.clientY);
+    applyZoom(pinchStartZoom * distance / pinchStartDistance);
+  }, { passive: false });
+
+  viewport.addEventListener("touchend", (event) => {
+    if (event.touches.length < 2) pinchStartDistance = 0;
+  }, { passive: true });
 
   applyZoom(1);
   zoomControllers.set(canvas.id, { applyZoom, get zoom() { return zoom; } });
@@ -93,6 +114,7 @@ function filterStudyAnswers() {
 }
 
 function refreshStudyProgress() {
+  ensureStudyRendered();
   const totalAnswers = ITEMS.length + MCQ_BANK.length + MAP_ITEMS.length + DA_MAP_ITEMS.length;
   document.querySelector("#placed-count").textContent = String(totalAnswers);
   document.querySelector("#progress-label").textContent = "answers shown";
@@ -100,9 +122,15 @@ function refreshStudyProgress() {
 }
 
 document.querySelectorAll(".map-zoom-bar[data-zoom-target]").forEach(createMapZoom);
-renderPictureStudyKey();
-renderQuestionStudyKey();
-document.querySelector("#study-answer-search").addEventListener("input", filterStudyAnswers);
+let studyRendered = false;
 
-window.studyGuide = { refreshProgress: refreshStudyProgress, zoomControllers };
+function ensureStudyRendered() {
+  if (studyRendered) return;
+  studyRendered = true;
+  renderPictureStudyKey();
+  renderQuestionStudyKey();
+  document.querySelector("#study-answer-search").addEventListener("input", filterStudyAnswers);
+}
+
+window.studyGuide = { refreshProgress: refreshStudyProgress, zoomControllers, ensureRendered: ensureStudyRendered };
 if (document.body.dataset.section === "study") refreshStudyProgress();
