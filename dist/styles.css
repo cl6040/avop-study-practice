@@ -234,6 +234,40 @@ button:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
 .study-map-canvas img { display: block; width: 100%; height: auto; user-select: none; }
 .study-map-viewport { max-height: 72vh; }
 
+.driving-exam { display: grid; min-height: min(38rem, 68vh); place-items: center; }
+.driving-card { width: min(100%, 38rem); border: 1px solid var(--line); border-radius: 1rem; background: var(--white); padding: clamp(1.25rem, 4vw, 2.5rem); box-shadow: var(--shadow); text-align: center; }
+.driving-icon { display: grid; width: 4.5rem; height: 4.5rem; place-items: center; margin: 0 auto 0.75rem; border-radius: 1.15rem; background: var(--yellow-soft); font-size: 2.35rem; }
+.driving-card h2 { margin-bottom: 0.45rem; font-size: clamp(1.6rem, 4vw, 2.35rem); }
+.driving-card > p:not(.step) { color: var(--muted); }
+.driving-card ul { display: grid; max-width: 25rem; gap: 0.45rem; margin: 1rem auto 1.35rem; padding: 0; list-style: none; text-align: left; }
+.driving-card li { border-radius: 0.65rem; background: var(--ice); padding: 0.65rem 0.75rem; font-weight: 750; }
+.driving-card li::before { content: "✓"; margin-right: 0.55rem; color: var(--correct); font-weight: 950; }
+
+.suggestion-launcher { position: fixed; z-index: 55; right: max(1rem, env(safe-area-inset-right)); bottom: max(1rem, env(safe-area-inset-bottom)); display: flex; min-height: 3.2rem; cursor: pointer; align-items: center; gap: 0.45rem; border: 2px solid var(--navy); border-radius: 999px; background: var(--yellow); color: var(--navy); padding: 0.65rem 0.95rem; font-weight: 950; box-shadow: 0 8px 24px rgba(7,28,44,0.25); }
+.suggestion-launcher span:first-child { font-size: 1.2rem; }
+.suggestion-panel { position: fixed; z-index: 70; right: max(0.75rem, env(safe-area-inset-right)); bottom: calc(4.8rem + env(safe-area-inset-bottom)); display: grid; width: min(24rem, calc(100vw - 1.5rem)); max-height: min(42rem, calc(100dvh - 6rem)); grid-template-rows: auto auto auto minmax(0, 1fr) auto auto; overflow: hidden; border: 2px solid var(--navy); border-radius: 1rem; background: var(--white); box-shadow: 0 24px 70px rgba(7,28,44,0.32); }
+.suggestion-header { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; background: var(--navy); color: var(--white); padding: 0.8rem 0.9rem; }
+.suggestion-header h2, .suggestion-header p { margin: 0; color: var(--white); }
+.suggestion-header .step { color: var(--yellow); }
+.suggestion-header h2 { font-size: 1.05rem; }
+.suggestion-close { width: 2.5rem; height: 2.5rem; cursor: pointer; border: 1px solid rgba(255,255,255,0.3); border-radius: 50%; background: rgba(255,255,255,0.08); color: var(--white); font-size: 1.55rem; line-height: 1; }
+.suggestion-conversation { display: grid; max-height: 10rem; gap: 0.5rem; overflow-y: auto; padding: 0.75rem 0.8rem 0; }
+.bot-message, .user-message { width: fit-content; max-width: 92%; margin: 0; border-radius: 0.75rem; padding: 0.55rem 0.65rem; font-size: 0.82rem; line-height: 1.35; }
+.bot-message { background: var(--sky); color: var(--navy); }
+.user-message { justify-self: end; background: var(--navy); color: var(--white); }
+.suggestion-choices { display: grid; gap: 0.5rem; padding: 0.75rem 0.8rem; }
+.suggestion-choices button { min-height: 2.8rem; cursor: pointer; border: 2px solid var(--navy-soft); border-radius: 0.7rem; background: var(--white); color: var(--navy); padding: 0.6rem 0.75rem; font-weight: 850; text-align: left; }
+.suggestion-choices button:hover { background: var(--yellow-soft); }
+.suggestion-form { min-height: 0; overflow-y: auto; padding: 0.65rem 0.8rem; }
+.suggestion-fields { display: grid; gap: 0.6rem; }
+.suggestion-fields label { display: grid; gap: 0.25rem; color: var(--muted); font-size: 0.76rem; font-weight: 850; }
+.suggestion-fields input, .suggestion-fields textarea { width: 100%; border: 2px solid var(--line); border-radius: 0.6rem; background: var(--ice); color: var(--ink); padding: 0.55rem 0.65rem; font: inherit; font-size: 1rem; line-height: 1.35; resize: vertical; }
+.suggestion-fields input:focus, .suggestion-fields textarea:focus { outline: 3px solid var(--yellow); outline-offset: 1px; border-color: var(--navy-soft); }
+.suggestion-privacy { margin: 0.65rem 0; color: var(--muted); font-size: 0.7rem; line-height: 1.35; }
+.suggestion-actions { display: grid; grid-template-columns: 0.7fr 1.3fr; gap: 0.5rem; }
+.suggestion-status { margin: 0; color: var(--correct); padding: 0 0.8rem; font-size: 0.75rem; font-weight: 800; }
+.suggestion-inbox-link { color: var(--navy); padding: 0.65rem 0.8rem 0.8rem; font-size: 0.75rem; font-weight: 850; text-align: center; }
+
 footer { background: var(--navy); color: #a9c0cb; padding: 1rem; text-align: center; }
 footer p { margin: 0; font-size: 0.8rem; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
@@ -267,6 +301,7 @@ footer p { margin: 0; font-size: 0.8rem; }
   .section-tab { padding: 0.52rem 0.45rem; font-size: 0.86rem; }
   .mcq-card { min-height: 21rem; }
   .study-picture-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  body[data-section="picture"] .suggestion-launcher { bottom: 16.25rem; }
 }
 
 @media (max-width: 580px) {
@@ -391,8 +426,10 @@ footer p { margin: 0; font-size: 0.8rem; }
   .progress-track { margin-top: 0.25rem; }
 
   .section-tabs {
+    display: grid;
     width: calc(100% - 0.75rem);
-    min-height: 3rem;
+    min-height: 5.4rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.22rem;
     margin-top: 0.35rem;
     padding: 0.25rem;
@@ -428,8 +465,8 @@ footer p { margin: 0; font-size: 0.8rem; }
   .mcq-actions { gap: 0.65rem; padding: 0.7rem; }
   .mcq-actions p { font-size: 0.8rem; }
 
-  body[data-section="picture"] .app-shell { height: calc(100dvh - 7.45rem); }
-  body[data-section="picture"] .carousel-panel { height: calc(100dvh - 23.8rem); min-height: 9rem; }
+  body[data-section="picture"] .app-shell { height: calc(100dvh - 9.9rem); }
+  body[data-section="picture"] .carousel-panel { height: calc(100dvh - 26.25rem); min-height: 9rem; }
   body[data-section="picture"] .label-panel {
     bottom: calc(4.45rem + env(safe-area-inset-bottom));
     height: 11.25rem;
@@ -503,6 +540,11 @@ footer p { margin: 0; font-size: 0.8rem; }
   .study-answer-list { gap: 0.5rem; }
   .study-answer-card { padding: 0.7rem; }
   .study-map-viewport { max-height: 58dvh; }
+  .driving-exam { min-height: 56vh; }
+  .driving-card { border-radius: 0.8rem; padding: 1.1rem; }
+  .suggestion-launcher { right: max(0.6rem, env(safe-area-inset-right)); bottom: max(0.6rem, env(safe-area-inset-bottom)); min-height: 3rem; padding: 0.58rem 0.75rem; }
+  body[data-section="picture"] .suggestion-launcher { bottom: calc(16rem + env(safe-area-inset-bottom)); }
+  .suggestion-panel { right: 0.5rem; bottom: calc(4.35rem + env(safe-area-inset-bottom)); width: calc(100vw - 1rem); max-height: calc(100dvh - 5rem); }
 
   footer { padding: 0.75rem 0.6rem max(0.75rem, env(safe-area-inset-bottom)); }
   footer p { font-size: 0.7rem; }

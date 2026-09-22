@@ -1,0 +1,21 @@
+name: Suggest an app improvement
+description: Propose an interface, feature, map, picture, or other change
+title: "[Suggestion] "
+labels:
+  - app-suggestion
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for the idea. App changes are reviewed and require the owner's approval before implementation.
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested change
+      placeholder: Describe what should be added or changed.
+    validations:
+      required: true
+  - type: textarea
+    id: benefit
+    attributes:
+      label: Why would this help?
+      placeholder: Describe the problem this solves for learners.

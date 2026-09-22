@@ -8,6 +8,8 @@ A static, responsive one-page study app built from the supplied AVOP materials. 
 - A separate typed-answer **D/A April** map quiz covering its 53 taxiway, road, helipad, apron, and run-up labels.
 - Mobile map zoom controls with two-finger pinch, zoom in, zoom out, and fit-to-screen views contained inside each map frame.
 - A complete **Study** reference showing all 25 picture labels, all 60 question-bank answers, and both labeled answer maps.
+- A floating suggestion assistant that sends structured question additions and improvement ideas to the GitHub review inbox.
+- An **Upcoming: Driving Exam** tab ready for future scenario-based practice.
 
 Multiple-choice answers are scored only after all 25 questions are complete. Incorrect answers can then be reviewed one at a time.
 
@@ -29,3 +31,5 @@ No server, database, package installation, or API key is required.
 Attach the replacement PDFs to the Codex task and identify which edition they replace. The app keeps stable public asset paths, while all visible edition names are centralized in `dist/content-config.js`.
 
 See [UPDATING.md](UPDATING.md) for the upload checklist and verification process.
+
+See [SUGGESTIONS.md](SUGGESTIONS.md) for the question-review and owner-approval workflow.

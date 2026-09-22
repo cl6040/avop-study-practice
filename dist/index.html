@@ -20,6 +20,7 @@
     <script src="map.js" defer></script>
     <script src="da-map.js" defer></script>
     <script src="study.js" defer></script>
+    <script src="suggestions.js" defer></script>
     <title>AVOP Study Practice</title>
   </head>
   <body data-section="mcq">
@@ -46,6 +47,7 @@
       <button class="section-tab" type="button" role="tab" aria-selected="false" data-section-target="map">D Map</button>
       <button id="da-map-tab" class="section-tab" type="button" role="tab" aria-selected="false" data-section-target="da-map">D/A Map</button>
       <button class="section-tab study-tab" type="button" role="tab" aria-selected="false" data-section-target="study">Study</button>
+      <button class="section-tab upcoming-tab" type="button" role="tab" aria-selected="false" data-section-target="driving"><span class="tab-label-wide">Driving Exam</span><span class="tab-label-compact">Driving</span></button>
     </nav>
 
     <main id="study-content" class="app-shell">
@@ -380,7 +382,60 @@
           </div>
         </section>
       </section>
+
+      <section id="driving-exam" class="study-section driving-exam" aria-labelledby="driving-heading" hidden>
+        <div class="driving-card">
+          <div class="driving-icon" aria-hidden="true">🚙</div>
+          <p class="step">UPCOMING</p>
+          <h2 id="driving-heading">Driving Exam</h2>
+          <p>A guided driving-exam practice section is planned for a future update.</p>
+          <ul>
+            <li>Route and positioning scenarios</li>
+            <li>Right-of-way and hazard decisions</li>
+            <li>Mobile-friendly step-by-step practice</li>
+          </ul>
+          <button id="driving-suggest-open" class="primary-button" type="button">Suggest a driving scenario</button>
+        </div>
+      </section>
     </main>
+
+    <button id="suggestion-launcher" class="suggestion-launcher" type="button" aria-controls="suggestion-panel" aria-expanded="false">
+      <span aria-hidden="true">💬</span><span>Suggest</span>
+    </button>
+
+    <aside id="suggestion-panel" class="suggestion-panel" role="dialog" aria-labelledby="suggestion-heading" hidden>
+      <header class="suggestion-header">
+        <div><p class="step">SUGGESTION BOT</p><h2 id="suggestion-heading">Help improve this app</h2></div>
+        <button id="suggestion-close" class="suggestion-close" type="button" aria-label="Close suggestion bot">×</button>
+      </header>
+      <div id="suggestion-conversation" class="suggestion-conversation" aria-live="polite">
+        <p class="bot-message">Hi! What would you like to add?</p>
+      </div>
+      <div id="suggestion-choices" class="suggestion-choices">
+        <button type="button" data-suggestion-kind="question">Add a new question</button>
+        <button type="button" data-suggestion-kind="general">Suggest an improvement</button>
+      </div>
+      <form id="suggestion-form" class="suggestion-form" hidden>
+        <input id="suggestion-kind" type="hidden" />
+        <div id="question-suggestion-fields" class="suggestion-fields" hidden>
+          <label>Question <textarea id="suggested-question" rows="3" required></textarea></label>
+          <label>Correct answer <textarea id="suggested-answer" rows="2" required></textarea></label>
+          <label>Other answer choices <textarea id="suggested-choices" rows="3" placeholder="One choice per line"></textarea></label>
+          <label>Source document and page <input id="suggested-source" type="text" placeholder="Example: 2026 ATD, page 102" required /></label>
+        </div>
+        <div id="general-suggestion-fields" class="suggestion-fields" hidden>
+          <label>Your suggestion <textarea id="suggested-improvement" rows="4" required></textarea></label>
+          <label>Why would this help? <textarea id="suggested-benefit" rows="2"></textarea></label>
+        </div>
+        <p class="suggestion-privacy">Submissions are reviewed on GitHub. New, sourced questions may be added during the next owner-requested update. Other changes require owner approval.</p>
+        <div class="suggestion-actions">
+          <button id="suggestion-back" class="text-button" type="button">Back</button>
+          <button class="primary-button" type="submit">Continue to GitHub</button>
+        </div>
+      </form>
+      <p id="suggestion-status" class="suggestion-status" aria-live="polite"></p>
+      <a class="suggestion-inbox-link" href="https://github.com/cl6040/avop-study-practice/issues" target="_blank" rel="noopener">View suggestion inbox</a>
+    </aside>
 
     <footer>
       <p>Study aid based on the supplied AVOP materials. Not an official examination.</p>

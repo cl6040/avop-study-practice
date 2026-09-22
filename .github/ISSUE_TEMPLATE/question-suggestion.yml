@@ -1,0 +1,35 @@
+name: Suggest a new question
+description: Propose a sourced question for the AVOP question bank
+title: "[Question] "
+labels:
+  - question-suggestion
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping improve the question bank. Every question is checked against the source and for duplicates before it can be added.
+  - type: textarea
+    id: question
+    attributes:
+      label: Suggested question
+      placeholder: Enter the complete question.
+    validations:
+      required: true
+  - type: textarea
+    id: answer
+    attributes:
+      label: Correct answer
+      placeholder: Enter the complete correct answer.
+    validations:
+      required: true
+  - type: textarea
+    id: choices
+    attributes:
+      label: Other answer choices
+      description: Optional. Put one choice on each line.
+  - type: input
+    id: source
+    attributes:
+      label: Source document and page
+      placeholder: Example: 2026 Airside Traffic Directives, page 102
+    validations:
+      required: true

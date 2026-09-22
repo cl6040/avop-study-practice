@@ -263,7 +263,7 @@ function reviewNextMcqMistake() {
   renderMcqQuestion();
 }
 
-const STUDY_SECTIONS = new Set(["mcq", "picture", "map", "da-map", "study"]);
+const STUDY_SECTIONS = new Set(["mcq", "picture", "map", "da-map", "study", "driving"]);
 
 function showSection(section, { updateUrl = true } = {}) {
   if (!STUDY_SECTIONS.has(section)) section = "mcq";
@@ -273,6 +273,7 @@ function showSection(section, { updateUrl = true } = {}) {
   document.querySelector("#map-practice").hidden = section !== "map";
   document.querySelector("#da-map-practice").hidden = section !== "da-map";
   document.querySelector("#study-reference").hidden = section !== "study";
+  document.querySelector("#driving-exam").hidden = section !== "driving";
   document.querySelectorAll("[data-section-target]").forEach((button) => {
     const active = button.dataset.sectionTarget === section;
     button.classList.toggle("active", active);
@@ -283,6 +284,11 @@ function showSection(section, { updateUrl = true } = {}) {
   if (section === "map") window.mapQuiz?.refreshProgress();
   if (section === "da-map") window.daMapQuiz?.refreshProgress();
   if (section === "study") window.studyGuide?.refreshProgress();
+  if (section === "driving") {
+    document.querySelector("#placed-count").textContent = "—";
+    document.querySelector("#progress-label").textContent = "coming soon";
+    document.querySelector("#progress-bar").style.width = "0";
+  }
   if (updateUrl) {
     const url = new URL(window.location.href);
     if (section === "mcq") url.searchParams.delete("section");

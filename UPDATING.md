@@ -21,6 +21,13 @@ A useful request is: “Replace the August 2026 ATD and D map with these files, 
 
 The published asset filenames stay stable. This avoids broken links and lets GitHub Pages update automatically after changes are pushed.
 
+## Suggestions submitted through the app
+
+The floating suggestion assistant stores submissions as GitHub Issues. When the
+owner asks to update from suggestions, follow [SUGGESTIONS.md](SUGGESTIONS.md):
+source-check and deduplicate proposed questions, and request owner approval for
+all other changes.
+
 ## Required verification before publishing
 
 - All JavaScript files pass syntax checks.
