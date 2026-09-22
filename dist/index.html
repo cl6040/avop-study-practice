@@ -20,6 +20,7 @@
     <script src="map.js" defer></script>
     <script src="da-map.js" defer></script>
     <script src="study.js" defer></script>
+    <script src="driving.js?v=1" defer></script>
     <script src="suggestions.js" defer></script>
     <title>AVOP Study Practice</title>
   </head>
@@ -47,7 +48,7 @@
       <button class="section-tab" type="button" role="tab" aria-selected="false" data-section-target="map">D Map</button>
       <button id="da-map-tab" class="section-tab" type="button" role="tab" aria-selected="false" data-section-target="da-map">D/A Map</button>
       <button class="section-tab study-tab" type="button" role="tab" aria-selected="false" data-section-target="study">Study</button>
-      <button class="section-tab upcoming-tab" type="button" role="tab" aria-selected="false" data-section-target="driving"><span class="tab-label-wide">Driving Exam</span><span class="tab-label-compact">Driving</span></button>
+      <button class="section-tab" type="button" role="tab" aria-selected="false" data-section-target="driving"><span class="tab-label-wide">Driving Exam</span><span class="tab-label-compact">Driving</span></button>
     </nav>
 
     <main id="study-content" class="app-shell">
@@ -384,17 +385,71 @@
       </section>
 
       <section id="driving-exam" class="study-section driving-exam" aria-labelledby="driving-heading" hidden>
-        <div class="driving-card">
-          <div class="driving-icon" aria-hidden="true">🚙</div>
-          <p class="step">UPCOMING</p>
-          <h2 id="driving-heading">Driving Exam</h2>
-          <p>A guided driving-exam practice section is planned for a future update.</p>
-          <ul>
-            <li>Route and positioning scenarios</li>
-            <li>Right-of-way and hazard decisions</li>
-            <li>Mobile-friendly step-by-step practice</li>
-          </ul>
-          <button id="driving-suggest-open" class="primary-button" type="button">Suggest a driving scenario</button>
+        <div class="driving-shell">
+          <header class="driving-hero">
+            <div>
+              <p class="step">D/A PRACTICAL PREP · 42 CARDS</p>
+              <h2 id="driving-heading">Driving Exam trainer</h2>
+              <p>Say or point out your answer as if an examiner asked you in the vehicle. Reveal the ATD answer, then rate yourself.</p>
+            </div>
+            <div class="driving-scoreboard" aria-label="Driving practice progress">
+              <div><strong id="driving-reviewed">0</strong><span>reviewed</span></div>
+              <div><strong id="driving-mastered">0</strong><span>got it</span></div>
+            </div>
+          </header>
+
+          <div id="driving-categories" class="driving-categories" role="tablist" aria-label="Driving exam topics">
+            <button class="active" type="button" role="tab" aria-selected="true" data-driving-category="all">All 42</button>
+            <button type="button" role="tab" aria-selected="false" data-driving-category="aprons">Aprons</button>
+            <button type="button" role="tab" aria-selected="false" data-driving-category="definitions">Definitions</button>
+            <button type="button" role="tab" aria-selected="false" data-driving-category="markings">Lines</button>
+            <button type="button" role="tab" aria-selected="false" data-driving-category="signs">Signs</button>
+            <button type="button" role="tab" aria-selected="false" data-driving-category="taxiways">Taxiways</button>
+            <button type="button" role="tab" aria-selected="false" data-driving-category="safety">Safety</button>
+          </div>
+
+          <article id="driving-card" class="driving-practice-card" tabindex="-1">
+            <div class="driving-card-meta">
+              <span id="driving-card-category" class="state-pill">Aprons</span>
+              <span id="driving-card-counter">Card 1 of 42</span>
+            </div>
+            <h3 id="driving-card-title"></h3>
+            <p id="driving-card-prompt" class="driving-prompt"></p>
+            <figure id="driving-question-figure" class="driving-question-figure" hidden>
+              <img id="driving-question-image" alt="" draggable="false" />
+              <figcaption id="driving-question-caption"></figcaption>
+            </figure>
+
+            <button id="driving-reveal" class="primary-button driving-reveal" type="button">Reveal ATD answer</button>
+
+            <section id="driving-answer" class="driving-answer" aria-live="polite" hidden>
+              <div class="driving-answer-heading"><span>ATD ANSWER</span><span id="driving-source"></span></div>
+              <div id="driving-answer-content"></div>
+              <figure id="driving-answer-figure" class="driving-answer-figure" hidden>
+                <img id="driving-answer-image" alt="" draggable="false" />
+                <figcaption>Use the labeled training map to check the location you pointed out.</figcaption>
+              </figure>
+              <p class="driving-rate-prompt">How did you do?</p>
+              <div class="driving-rating">
+                <button id="driving-practice-again" class="secondary-button" type="button">Practice again</button>
+                <button id="driving-got-it" class="primary-button" type="button">Got it</button>
+              </div>
+            </section>
+
+            <nav class="driving-navigation" aria-label="Driving practice navigation">
+              <button id="driving-previous" class="secondary-button" type="button">Previous</button>
+              <button id="driving-shuffle" class="text-button" type="button">Shuffle</button>
+              <button id="driving-next" class="secondary-button" type="button">Next</button>
+            </nav>
+          </article>
+
+          <div class="driving-footer-actions">
+            <p>Your ratings are saved on this device. The practical test may cover any ATD content.</p>
+            <div>
+              <button id="driving-reset-progress" class="text-button" type="button">Reset progress</button>
+              <button id="driving-suggest-open" class="text-button" type="button">Suggest a scenario</button>
+            </div>
+          </div>
         </div>
       </section>
     </main>

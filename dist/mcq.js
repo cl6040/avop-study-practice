@@ -285,11 +285,7 @@ function showSection(section, { updateUrl = true } = {}) {
   if (section === "map") window.mapQuiz?.refreshProgress();
   if (section === "da-map") window.daMapQuiz?.refreshProgress();
   if (section === "study") window.studyGuide?.refreshProgress();
-  if (section === "driving") {
-    document.querySelector("#placed-count").textContent = "—";
-    document.querySelector("#progress-label").textContent = "coming soon";
-    document.querySelector("#progress-bar").style.width = "0";
-  }
+  if (section === "driving") window.drivingExam?.refreshProgress();
   if (updateUrl) {
     const url = new URL(window.location.href);
     if (section === "mcq") url.searchParams.delete("section");
