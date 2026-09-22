@@ -59,6 +59,7 @@ const MCQ_BANK = [
   { id: "q58", page: 3, kind: "Image identification", image: "assets/stop-bars.png", imageAlt: "Red stop bar lights at a runway holding position", question: "The lights shown in the image indicate:", answer: "Stop Bars", options: ["Stop Bars", "Runway Edge Lights", "Taxiway Edge Lights", "Landing Lights"] },
   { id: "q59", page: 6, kind: "Image identification", image: "assets/pedestrian-crosswalk.png", imageAlt: "White pedestrian crosswalk pavement marking", question: "What does this pavement marking indicate?", answer: "Pedestrian Crosswalk", options: ["Passenger Walkway", "Golf Cart Lane", "Pedestrian Crosswalk", "Stop Line"] },
   { id: "q60", page: 6, kind: "Image identification", image: "assets/taxiway-center-lines.png", imageAlt: "Yellow taxiway centre line", question: "Taxiway centre lines are solid yellow. What colour are the taxiway centreline lights?", answer: "Green", options: ["Yellow", "Blue", "Red", "Green"] },
+  { id: "q61", page: 42, question: "Which is NOT an indication that an aircraft is going to push back?", answer: "The aircraft anti-collision lights are off", options: ["The aircraft anti-collision lights are off", "Wing walkers are in place at the aircraft's wingtips", "A tug is connected to the aircraft", "The passenger boarding bridge has retracted"] },
 ];
 
 function seededRandom(seed) {
