@@ -1,8 +1,6 @@
 name: Suggest an app improvement
 description: Propose an interface, feature, map, picture, or other change
 title: "[Suggestion] "
-labels:
-  - app-suggestion
 body:
   - type: markdown
     attributes:

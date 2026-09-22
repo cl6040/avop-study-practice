@@ -1,8 +1,6 @@
 name: Suggest a new question
 description: Propose a sourced question for the AVOP question bank
 title: "[Question] "
-labels:
-  - question-suggestion
 body:
   - type: markdown
     attributes:

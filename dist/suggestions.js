@@ -68,7 +68,6 @@
     const choices = document.querySelector("#suggested-choices").value.trim() || "Not provided";
     const source = document.querySelector("#suggested-source").value.trim();
     return {
-      label: "question-suggestion",
       title: `[Question] ${question.slice(0, 80)}`,
       body: `### Suggested question\n${question}\n\n### Correct answer\n${answer}\n\n### Other answer choices\n${choices}\n\n### Source document and page\n${source}\n\n### Submission type\nNew question for duplicate and source review.`,
     };
@@ -78,7 +77,6 @@
     const suggestion = document.querySelector("#suggested-improvement").value.trim();
     const benefit = document.querySelector("#suggested-benefit").value.trim() || "Not provided";
     return {
-      label: "app-suggestion",
       title: `[Suggestion] ${suggestion.slice(0, 75)}`,
       body: `### Suggested change\n${suggestion}\n\n### Why this would help\n${benefit}\n\n### Approval status\nPending owner approval before implementation.`,
     };
@@ -102,7 +100,6 @@
     const issueUrl = new URL(issueBaseUrl);
     issueUrl.searchParams.set("title", issue.title);
     issueUrl.searchParams.set("body", issue.body);
-    issueUrl.searchParams.set("labels", issue.label);
     window.open(issueUrl.toString(), "_blank", "noopener,noreferrer");
     status.textContent = "Your suggestion is ready on GitHub. Sign in if needed, review it, then select Create issue.";
   });
