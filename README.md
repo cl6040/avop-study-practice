@@ -33,3 +33,5 @@ Attach the replacement PDFs to the Codex task and identify which edition they re
 See [UPDATING.md](UPDATING.md) for the upload checklist and verification process.
 
 See [SUGGESTIONS.md](SUGGESTIONS.md) for the question-review and owner-approval workflow.
+
+See [SECURITY_REVIEW.md](SECURITY_REVIEW.md) for the applied Vibecoder security review, remediations, residual platform limitation, and automated security gate.

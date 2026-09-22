@@ -171,7 +171,12 @@ function renderCurrent() {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "placed-label";
-    button.innerHTML = `<span>${placed.label}</span><span aria-hidden="true">×</span>`;
+    const labelText = document.createElement("span");
+    labelText.textContent = placed.label;
+    const removeIcon = document.createElement("span");
+    removeIcon.setAttribute("aria-hidden", "true");
+    removeIcon.textContent = "×";
+    button.append(labelText, removeIcon);
     button.setAttribute("aria-label", `Remove ${placed.label}`);
     button.disabled = state.submitted;
     button.addEventListener("click", removeCurrentAssignment);

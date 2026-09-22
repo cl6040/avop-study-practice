@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#071c2c" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; connect-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; form-action 'none'; upgrade-insecure-requests; require-trusted-types-for 'script'"
+    />
     <meta
       name="description"
       content="Practice identifying YVR airside signs and markings with a drag-and-drop picture quiz."
@@ -15,11 +20,11 @@
     />
     <link rel="stylesheet" href="styles.css" />
     <script src="content-config.js" defer></script>
-    <script src="app.js" defer></script>
+    <script src="app.js?v=2" defer></script>
     <script src="mcq.js?v=61" defer></script>
     <script src="map.js" defer></script>
     <script src="da-map.js" defer></script>
-    <script src="study.js" defer></script>
+    <script src="study.js?v=2" defer></script>
     <script src="driving.js?v=1" defer></script>
     <script src="suggestions.js" defer></script>
     <title>AVOP Study Practice</title>
@@ -473,14 +478,14 @@
       <form id="suggestion-form" class="suggestion-form" hidden>
         <input id="suggestion-kind" type="hidden" />
         <div id="question-suggestion-fields" class="suggestion-fields" hidden>
-          <label>Question <textarea id="suggested-question" rows="3" required></textarea></label>
-          <label>Correct answer <textarea id="suggested-answer" rows="2" required></textarea></label>
-          <label>Other answer choices <textarea id="suggested-choices" rows="3" placeholder="One choice per line"></textarea></label>
-          <label>Source document and page <input id="suggested-source" type="text" placeholder="Example: 2026 ATD, page 102" required /></label>
+          <label>Question <textarea id="suggested-question" rows="3" maxlength="500" required></textarea></label>
+          <label>Correct answer <textarea id="suggested-answer" rows="2" maxlength="500" required></textarea></label>
+          <label>Other answer choices <textarea id="suggested-choices" rows="3" maxlength="1000" placeholder="One choice per line"></textarea></label>
+          <label>Source document and page <input id="suggested-source" type="text" maxlength="200" placeholder="Example: 2026 ATD, page 102" required /></label>
         </div>
         <div id="general-suggestion-fields" class="suggestion-fields" hidden>
-          <label>Your suggestion <textarea id="suggested-improvement" rows="4" required></textarea></label>
-          <label>Why would this help? <textarea id="suggested-benefit" rows="2"></textarea></label>
+          <label>Your suggestion <textarea id="suggested-improvement" rows="4" maxlength="1000" required></textarea></label>
+          <label>Why would this help? <textarea id="suggested-benefit" rows="2" maxlength="500"></textarea></label>
         </div>
         <p class="suggestion-privacy">Submissions are reviewed on GitHub. New, sourced questions may be added during the next owner-requested update. Other changes require owner approval.</p>
         <div class="suggestion-actions">
@@ -489,7 +494,7 @@
         </div>
       </form>
       <p id="suggestion-status" class="suggestion-status" aria-live="polite"></p>
-      <a class="suggestion-inbox-link" href="https://github.com/cl6040/avop-study-practice/issues" target="_blank" rel="noopener">View suggestion inbox</a>
+      <a class="suggestion-inbox-link" href="https://github.com/cl6040/avop-study-practice/issues" target="_blank" rel="noopener noreferrer">View suggestion inbox</a>
     </aside>
 
     <footer>

@@ -98,7 +98,9 @@ function renderQuestionStudyKey() {
     prompt.textContent = question.question;
     const answer = document.createElement("p");
     answer.className = "study-answer-value";
-    answer.innerHTML = "<span>Answer</span>";
+    const answerLabel = document.createElement("span");
+    answerLabel.textContent = "Answer";
+    answer.append(answerLabel);
     answer.append(document.createTextNode(question.answer));
     article.append(meta, prompt, answer);
     fragment.append(article);
