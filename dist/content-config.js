@@ -3,7 +3,7 @@
 const AVOP_CONTENT = Object.freeze({
   atdEdition: "August 2026",
   dMapEdition: "August 2026",
-  daMapEdition: "April 2026",
+  daMapEdition: "August 2026",
 });
 
 function applyContentEditionLabels() {

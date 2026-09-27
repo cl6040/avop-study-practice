@@ -19,13 +19,13 @@
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23071c2c'/%3E%3Cpath d='M9 36h46M15 47h34' stroke='%23f5b82e' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M28 11h8v17h11v7H17v-7h11z' fill='%23eef7f9'/%3E%3C/svg%3E"
     />
     <link rel="stylesheet" href="styles.css" />
-    <script src="content-config.js" defer></script>
+    <script src="content-config.js?v=august-2026" defer></script>
     <script src="app.js?v=2" defer></script>
     <script src="mcq.js?v=61" defer></script>
     <script src="map.js" defer></script>
-    <script src="da-map.js" defer></script>
+    <script src="da-map.js?v=august-2026" defer></script>
     <script src="study.js?v=2" defer></script>
-    <script src="driving.js?v=1" defer></script>
+    <script src="driving.js?v=2" defer></script>
     <script src="suggestions.js" defer></script>
     <title>AVOP Study Practice</title>
   </head>
@@ -265,10 +265,10 @@
         <div class="map-toolbar">
           <div>
             <p class="step">53 TYPED ANSWERS</p>
-            <h2 id="da-map-heading">D/A April map practice</h2>
+            <h2 id="da-map-heading">D/A August map practice</h2>
             <p>Choose a blank coloured box, type its label, then press Enter to continue. Your answer appears on the map.</p>
           </div>
-          <div class="map-legend" aria-label="D/A April map categories">
+          <div class="map-legend" aria-label="D/A August map categories">
             <span class="taxiway">Taxiways</span><span class="road">Roads</span><span class="runway">Helipad</span><span class="apron">Aprons</span><span class="runup">Run-up</span>
           </div>
         </div>
@@ -281,9 +281,9 @@
               <button class="secondary-button" type="button" data-zoom-action="in" aria-label="Zoom D/A map in">+</button>
               <button class="text-button" type="button" data-zoom-action="fit">Fit map</button>
             </div>
-            <div class="map-viewport" aria-label="Blank April D/A testing map. Pan the map and use the zoom controls to inspect all markers.">
+            <div class="map-viewport" aria-label="Blank August D/A testing map. Pan the map and use the zoom controls to inspect all markers.">
               <div id="da-practice-canvas" class="map-canvas">
-                <img src="assets/da-april-testing-map.png" alt="Blank April 2026 YVR D/A AVOP testing map" draggable="false" />
+                <img src="assets/da-april-testing-map.png?v=august-2026" alt="Blank August 2026 YVR D/A AVOP testing map" draggable="false" />
                 <div id="da-map-markers" class="map-markers"></div>
               </div>
             </div>
@@ -320,7 +320,7 @@
           <div class="score-ring" aria-hidden="true"><strong id="da-map-score">0</strong><span>/ 53</span></div>
           <div>
             <p class="step">RESULT</p>
-            <h2 id="da-map-results-heading">D/A April map complete</h2>
+            <h2 id="da-map-results-heading">D/A August map complete</h2>
             <p id="da-map-result-message"></p>
           </div>
           <div class="result-actions">
@@ -331,7 +331,7 @@
         </section>
 
         <div id="da-map-key-panel" class="map-key-panel" hidden>
-          <img src="assets/da-april-training-map.png" alt="Labeled April 2026 YVR D/A AVOP training map answer key" />
+          <img src="assets/da-april-training-map.png?v=august-2026" alt="Labeled August 2026 YVR D/A AVOP training map answer key" />
         </div>
       </section>
 
@@ -384,7 +384,7 @@
             <div class="map-zoom-bar" data-zoom-target="study-da-canvas" aria-label="D/A answer map zoom controls">
               <button class="secondary-button" type="button" data-zoom-action="out" aria-label="Zoom D/A answer map out">−</button><output aria-live="polite">100%</output><button class="secondary-button" type="button" data-zoom-action="in" aria-label="Zoom D/A answer map in">+</button><button class="text-button" type="button" data-zoom-action="fit">Fit map</button>
             </div>
-            <div class="map-viewport study-map-viewport"><div id="study-da-canvas" class="study-map-canvas"><img src="assets/da-april-training-map.png" alt="Labeled D/A AVOP training map answer key" draggable="false" /></div></div>
+            <div class="map-viewport study-map-viewport"><div id="study-da-canvas" class="study-map-canvas"><img src="assets/da-april-training-map.png?v=august-2026" alt="Labeled August 2026 D/A AVOP training map answer key" draggable="false" /></div></div>
           </div>
         </section>
       </section>
@@ -499,7 +499,7 @@
 
     <footer>
       <p>Study aid based on the supplied AVOP materials. Not an official examination.</p>
-      <p id="content-editions">ATD: August 2026 · D map: August 2026 · D/A map: April 2026</p>
+      <p id="content-editions">ATD: August 2026 · D map: August 2026 · D/A map: August 2026</p>
     </footer>
 
     <div id="status" class="sr-only" aria-live="polite"></div>

@@ -1,26 +1,26 @@
 const DA_MAP_GROUPS = [
   {
     key: "taxiway", label: "Taxiway", prefix: "T",
-    positions: [[68.96,29.87],[61.09,36.31],[35.38,37.09],[55.45,38.66],[71.72,38.79],[45.71,38.89],[58.41,39.02],[50.73,39.05],[40.66,41.08],[45.48,43.30],[41.69,45.59],[45.51,45.75],[38.23,47.09],[43.01,49.22],[41.87,55.82],[46.41,56.50],[30.30,58.69],[66.24,58.79],[67.98,58.79],[63.36,58.82],[69.57,58.79],[56.57,60.03],[61.77,61.14],[72.35,61.31],[78.16,61.57],[71.62,67.61],[51.14,68.30],[58.46,69.58],[71.97,70.49],[61.29,70.98],[68.36,71.90],[72.98,74.71]],
-    answers: ["N7","M","M","S","Q","JA","T","P","R","JB","K","JC","V","J","H","G","L","DT","DU","DS","DV","DR","D","DW","DY","A5","E","A","C","AR","F","C"]
+    positions: [[68.69,29.71],[60.68,36.08],[34.77,36.93],[55.10,38.53],[71.39,38.63],[45.13,38.76],[58.01,38.86],[50.28,38.86],[40.03,41.01],[44.92,43.20],[41.09,45.52],[44.92,45.69],[37.27,47.06],[42.40,49.12],[41.31,55.85],[45.88,56.50],[29.62,58.69],[66.01,58.95],[67.65,58.92],[62.98,58.95],[69.32,58.95],[56.21,60.07],[61.41,61.24],[72.07,61.37],[77.90,61.63],[50.71,68.40],[58.08,69.74],[71.74,70.72],[60.63,71.27],[62.75,71.31],[76.99,71.54],[72.75,74.93]],
+    answers: ["N7","M","M","S","Q","JA","T","P","R","JB","K","JC","V","J","H","G","L","DT","DU","DS","DV","DR","D","DW","DY","E","A","C","AR","AS","F","C"]
   },
   {
     key: "road", label: "Road", prefix: "RD",
-    positions: [[50.68,26.80],[16.84,29.67],[33.61,39.18],[63.56,41.50],[61.67,54.61],[14.52,55.92],[87.15,61.96],[87.10,67.03],[32.85,74.90],[44.72,77.22]],
+    positions: [[50.18,26.60],[16.04,29.48],[33.01,39.08],[63.28,41.44],[61.36,54.64],[13.74,55.95],[87.02,62.06],[87.05,67.19],[32.22,75.20],[44.24,77.52]],
     answers: ["N. Perimeter Rd","Button 08L Rd","CDN Svc Road","CDN Svc Road","Cargo Road","W. Dyke Rd","Button 26L Rd","S. Perimeter Rd","S. Dyke Rd","Button 31 Rd"]
   },
   {
     key: "runway", label: "Helipad", prefix: "HP",
-    positions: [[81.24,71.24]], answers: ["C"]
+    positions: [[81.09,71.41]], answers: ["C"]
   },
   {
     key: "apron", label: "Apron", prefix: "AP",
-    positions: [[68.01,26.41],[74.09,39.90],[48.89,46.86],[64.80,58.86],[58.36,59.25],[71.67,59.44],[64.62,73.63],[63.59,78.20],[71.59,78.27]],
+    positions: [[67.58,26.18],[73.89,39.84],[48.33,46.80],[64.52,58.92],[58.11,59.31],[71.41,59.54],[64.27,73.82],[63.23,78.30],[71.24,78.50]],
     answers: ["9","7","6","5","8","4","2","1","3"]
   },
   {
     key: "runup", label: "Run-up area", prefix: "RU",
-    positions: [[56.79,73.33]], answers: ["Compass Rose"]
+    positions: [[56.77,73.53]], answers: ["Compass Rose"]
   }
 ];
 
@@ -132,7 +132,7 @@ function submitDaMap() {
   daMapState.submitted = true;
   const incorrect = DA_MAP_ITEMS.filter((item) => !daMapAnswerIsCorrect(item));
   daMapElements.score.textContent = String(DA_MAP_ITEMS.length - incorrect.length);
-  daMapElements.resultMessage.textContent = incorrect.length ? `${incorrect.length} ${incorrect.length === 1 ? "label needs" : "labels need"} another look.` : "Perfect score. Every D/A April map label is correct.";
+  daMapElements.resultMessage.textContent = incorrect.length ? `${incorrect.length} ${incorrect.length === 1 ? "label needs" : "labels need"} another look.` : "Perfect score. Every D/A map label is correct.";
   daMapElements.review.hidden = incorrect.length === 0;
   daMapElements.results.hidden = false;
   if (incorrect.length) { daMapState.current = DA_MAP_ITEMS.indexOf(incorrect[0]); daMapState.reviewCursor = 1; }
