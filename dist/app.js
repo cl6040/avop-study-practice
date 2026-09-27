@@ -23,7 +23,9 @@ const ITEMS = [
   { id: "runway-holding-position-marking", label: "Runway Holding Position Marking", image: "assets/runway-holding-position-marking.png" },
   { id: "taxiway-center-lines", label: "Taxiway Center Lines", image: "assets/taxiway-center-lines.png" },
   { id: "zipper-lines", label: "Zipper Lines", image: "assets/zipper-lines.png" },
+  { id: "helipad-hold-position", label: "Helipad Hold Position", image: "assets/helipad-hold-position.jpg" },
   { id: "runway-edge-lights", label: "Runway Edge Lights", image: "assets/runway-edge-lights.png" },
+  { id: "cat-ii-iii-runway-holding-position", label: "CAT II/III Runway Holding Position", image: "assets/cat-ii-iii-runway-holding-position.jpg" },
 ];
 
 const byId = new Map(ITEMS.map((item) => [item.id, item]));
@@ -222,7 +224,7 @@ function updateProgress() {
   const count = state.assignments.size;
   const remaining = ITEMS.length - count;
   elements.placedCount.textContent = String(count);
-  elements.progressLabel.textContent = "of 25 placed";
+  elements.progressLabel.textContent = `of ${ITEMS.length} placed`;
   elements.progressBar.style.width = `${(count / ITEMS.length) * 100}%`;
   elements.submit.disabled = count !== ITEMS.length || state.submitted;
   elements.submitHint.textContent = remaining === 0

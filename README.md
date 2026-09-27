@@ -3,11 +3,11 @@
 A static, responsive one-page study app built from the supplied AVOP materials. It currently includes:
 
 - Five deterministic multiple-choice sets with 25 questions per set, drawn from a 61-question bank. Every set mixes rule recall, operational scenarios, list selection, fill-in-the-blank prompts, "all of the above" choices, and three image-identification questions.
-- A carousel-based picture quiz with a searchable magnet tray and scoring after every label is placed.
+- A 27-item August 2026 picture quiz with a carousel, searchable magnet tray, and scoring after every label is placed.
 - A typed-answer **D** map quiz covering all 85 blanks on the August 2026 testing map.
 - A separate typed-answer **D/A August** map quiz covering its 53 taxiway, road, helipad, apron, and run-up labels.
 - Mobile map zoom controls with two-finger pinch, zoom in, zoom out, and fit-to-screen views contained inside each map frame.
-- A complete **Study** reference showing all 25 picture labels, all 61 question-bank answers, and both labeled answer maps.
+- A complete **Study** reference showing all 27 picture labels, all 61 question-bank answers, and both labeled answer maps.
 - A floating suggestion assistant that sends structured question additions and improvement ideas to the GitHub review inbox.
 - A 42-card **Driving Exam** trainer covering all nine Aprons, required definitions, lines and markings, signs, controlled and uncontrolled taxiways, safety rules, and practical-test preparation. Users reveal the ATD answer and save a self-rating on their device.
 
