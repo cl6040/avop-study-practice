@@ -33,18 +33,30 @@ for (const file of textFiles) {
   const content = fs.readFileSync(file, "utf8");
   if (secretPatterns.some((pattern) => pattern.test(content))) report(file, "possible committed credential or private key");
   if (file.endsWith(".js") && dangerousDom.test(content)) report(file, "dangerous DOM or code-execution sink");
-  if (/https?:\/\//i.test(content) && /<(?:script|link)\b[^>]+(?:src|href)=["']https?:\/\//i.test(content)) {
-    report(file, "remote runtime script or stylesheet");
+  const remoteRuntimeTags = content.match(/<(?:script|link)\b[^>]+(?:src|href)=["']https?:\/\/[^>]+>/gi) || [];
+  for (const tag of remoteRuntimeTags) {
+    const isPinnedGoatCounter = file.endsWith("index.html")
+      && tag.includes('src="https://gc.zgo.at/count.v5.js"')
+      && tag.includes('integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"')
+      && tag.includes('crossorigin="anonymous"');
+    if (!isPinnedGoatCounter) report(file, "remote runtime script or stylesheet is not an approved, integrity-pinned dependency");
   }
   if (/http:\/\//i.test(content.replaceAll("http://www.w3.org/2000/svg", ""))) report(file, "insecure HTTP reference");
 }
 
 const htmlPath = path.join(root, "dist", "index.html");
 const html = fs.readFileSync(htmlPath, "utf8");
-const requiredCsp = ["default-src 'self'", "base-uri 'none'", "object-src 'none'", "script-src 'self'", "connect-src 'none'"];
+const requiredCsp = [
+  "default-src 'self'",
+  "base-uri 'none'",
+  "object-src 'none'",
+  "script-src 'self' https://gc.zgo.at/count.v5.js",
+  "connect-src https://odicron.goatcounter.com",
+];
 for (const directive of requiredCsp) {
   if (!html.includes(directive)) report(htmlPath, `missing CSP directive: ${directive}`);
 }
+if (!html.includes('data-goatcounter="https://odicron.goatcounter.com/count"')) report(htmlPath, "approved analytics endpoint is missing");
 for (const tag of html.match(/<a\b[^>]*target=["']_blank["'][^>]*>/gi) || []) {
   if (!/rel=["'][^"']*noopener[^"']*noreferrer[^"']*["']/i.test(tag)) report(htmlPath, "target=_blank link lacks noopener and noreferrer");
 }

@@ -131,7 +131,9 @@ function submitDaMap() {
   if (DA_MAP_ITEMS.some((item) => !(daMapState.answers.get(item.id) || "").trim())) return;
   daMapState.submitted = true;
   const incorrect = DA_MAP_ITEMS.filter((item) => !daMapAnswerIsCorrect(item));
-  daMapElements.score.textContent = String(DA_MAP_ITEMS.length - incorrect.length);
+  const score = DA_MAP_ITEMS.length - incorrect.length;
+  daMapElements.score.textContent = String(score);
+  window.avopAnalytics?.completion("da-map", score, DA_MAP_ITEMS.length);
   daMapElements.resultMessage.textContent = incorrect.length ? `${incorrect.length} ${incorrect.length === 1 ? "label needs" : "labels need"} another look.` : "Perfect score. Every D/A map label is correct.";
   daMapElements.review.hidden = incorrect.length === 0;
   daMapElements.results.hidden = false;

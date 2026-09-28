@@ -243,6 +243,7 @@ function submitMcq() {
   mcqState.submitted = true;
   const incorrect = mcqState.questions.filter((question) => mcqState.answers.get(question.id) !== question.answer);
   const score = 25 - incorrect.length;
+  window.avopAnalytics?.completion("multiple-choice", score, 25);
   mcqElements.score.textContent = String(score);
   document.querySelector("#mcq-result-message").textContent = score === 25 ? "Perfect score. Every answer is correct." : `${incorrect.length} ${incorrect.length === 1 ? "answer needs" : "answers need"} another look.`;
   mcqElements.review.hidden = incorrect.length === 0;
@@ -286,6 +287,7 @@ function showSection(section, { updateUrl = true } = {}) {
   if (section === "da-map") window.daMapQuiz?.refreshProgress();
   if (section === "study") window.studyGuide?.refreshProgress();
   if (section === "driving") window.drivingExam?.refreshProgress();
+  window.avopAnalytics?.section(section);
   if (updateUrl) {
     const url = new URL(window.location.href);
     if (section === "mcq") url.searchParams.delete("section");

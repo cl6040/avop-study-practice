@@ -202,6 +202,10 @@ function rateDrivingCard(rating) {
   drivingState.ratings.set(card.id, rating);
   saveDrivingRatings();
   updateDrivingProgress();
+  if (drivingState.ratings.size === DRIVING_BANK.length) {
+    const mastered = [...drivingState.ratings.values()].filter((value) => value === "mastered").length;
+    window.avopAnalytics?.completion("driving-exam", mastered, DRIVING_BANK.length);
+  }
   drivingElements.gotIt.classList.toggle("selected", rating === "mastered");
   drivingElements.practiceAgain.classList.toggle("selected", rating === "practice");
 }

@@ -244,6 +244,7 @@ function submitQuiz() {
   state.reviewCursor = 0;
   const incorrect = state.order.filter((id) => state.assignments.get(id) !== id);
   const score = ITEMS.length - incorrect.length;
+  window.avopAnalytics?.completion("picture-practice", score, ITEMS.length);
   elements.score.textContent = String(score);
   document.querySelector("#result-message").textContent = score === ITEMS.length
     ? "Perfect score. Every picture is correct."

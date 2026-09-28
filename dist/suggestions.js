@@ -15,6 +15,7 @@
   function setPanel(open) {
     panel.hidden = !open;
     launcher.setAttribute("aria-expanded", String(open));
+    if (open) window.avopAnalytics?.event("suggestion-opened", "Suggestion assistant opened");
     if (open) closeButton.focus();
     else launcher.focus();
   }
@@ -97,6 +98,7 @@
     event.preventDefault();
     if (!form.reportValidity()) return;
     const issue = selectedKind === "question" ? questionIssue() : generalIssue();
+    window.avopAnalytics?.event(`suggestion-${selectedKind}-prepared`, `Suggestion prepared: ${selectedKind}`);
     const issueUrl = new URL(issueBaseUrl);
     issueUrl.searchParams.set("title", issue.title);
     issueUrl.searchParams.set("body", issue.body);

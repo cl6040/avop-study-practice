@@ -156,7 +156,9 @@ function submitMap() {
   if (MAP_ITEMS.some((item) => !(mapState.answers.get(item.id) || "").trim())) return;
   mapState.submitted = true;
   const incorrect = MAP_ITEMS.filter((item) => !mapAnswerIsCorrect(item));
-  mapElements.score.textContent = String(MAP_ITEMS.length - incorrect.length);
+  const score = MAP_ITEMS.length - incorrect.length;
+  mapElements.score.textContent = String(score);
+  window.avopAnalytics?.completion("d-map", score, MAP_ITEMS.length);
   mapElements.resultMessage.textContent = incorrect.length ? `${incorrect.length} ${incorrect.length === 1 ? "label needs" : "labels need"} another look.` : "Perfect score. Every map label is correct.";
   mapElements.review.hidden = incorrect.length === 0;
   mapElements.results.hidden = false;
