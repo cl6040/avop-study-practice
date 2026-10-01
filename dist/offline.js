@@ -3,7 +3,32 @@
   const cacheStatus = document.querySelector("#offline-cache-status");
   const help = document.querySelector("#offline-help");
   const connectionStatus = document.querySelector("#connection-status");
+  const intro = document.querySelector("#offline-intro");
+  const introInstallButton = document.querySelector("#offline-intro-install");
+  const introLearnButton = document.querySelector("#offline-intro-learn");
+  const introDismissButton = document.querySelector("#offline-intro-dismiss");
+  const noticeKey = "avop-offline-notice-seen-v1";
   let installPrompt = null;
+
+  function hasSeenIntro() {
+    try { return window.localStorage.getItem(noticeKey) === "1"; } catch (_error) { return false; }
+  }
+
+  function rememberIntro() {
+    try { window.localStorage.setItem(noticeKey, "1"); } catch (_error) { /* Storage can be unavailable in private mode. */ }
+  }
+
+  function hideIntro() {
+    rememberIntro();
+    intro.hidden = true;
+  }
+
+  function showIntro() {
+    if (isInstalled() || hasSeenIntro()) return;
+    intro.hidden = false;
+    introInstallButton.hidden = !installPrompt;
+    window.avopAnalytics?.event("offline-notice-shown", "Offline notice shown");
+  }
 
   function isInstalled() {
     return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
@@ -31,27 +56,47 @@
   window.addEventListener("offline", updateConnectionStatus);
   updateConnectionStatus();
   updateInstallHelp();
+  showIntro();
 
   window.addEventListener("beforeinstallprompt", (event) => {
     event.preventDefault();
     installPrompt = event;
     installButton.hidden = false;
+    if (!intro.hidden) introInstallButton.hidden = false;
   });
 
-  installButton.addEventListener("click", async () => {
+  async function promptInstall(button) {
     if (!installPrompt) return;
-    installButton.disabled = true;
+    button.disabled = true;
     await installPrompt.prompt();
     const choice = await installPrompt.userChoice;
     installPrompt = null;
-    installButton.hidden = choice.outcome === "accepted";
-    installButton.disabled = false;
-    if (choice.outcome === "accepted") window.avopAnalytics?.event("offline-app-installed", "Offline app installed");
+    installButton.hidden = true;
+    introInstallButton.hidden = true;
+    button.disabled = false;
+    if (choice.outcome === "accepted") {
+      hideIntro();
+      window.avopAnalytics?.event("offline-app-installed", "Offline app installed");
+    }
+  }
+
+  installButton.addEventListener("click", () => promptInstall(installButton));
+  introInstallButton.addEventListener("click", () => promptInstall(introInstallButton));
+  introDismissButton.addEventListener("click", () => {
+    hideIntro();
+    window.avopAnalytics?.event("offline-notice-dismissed", "Offline notice acknowledged");
+  });
+  introLearnButton.addEventListener("click", () => {
+    hideIntro();
+    window.avopAnalytics?.event("offline-notice-learn", "Offline instructions opened");
+    document.querySelector('[data-section-target="study"]')?.click();
+    window.requestAnimationFrame(() => document.querySelector(".offline-card")?.scrollIntoView({ behavior: "smooth", block: "center" }));
   });
 
   window.addEventListener("appinstalled", () => {
     installPrompt = null;
     installButton.hidden = true;
+    hideIntro();
     cacheStatus.textContent = "Installed and ready offline";
     updateInstallHelp();
   });

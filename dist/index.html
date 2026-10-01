@@ -25,7 +25,7 @@
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="apple-touch-icon" href="assets/app-icon-192.png" />
     <script src="analytics.js?v=1" defer></script>
-    <script src="offline.js?v=1" defer></script>
+    <script src="offline.js?v=2" defer></script>
     <script
       id="goatcounter-script"
       data-goatcounter="https://odicron.goatcounter.com/count"
@@ -73,6 +73,18 @@
     </nav>
 
     <p id="connection-status" class="connection-status" role="status" hidden></p>
+    <aside id="offline-intro" class="offline-intro" aria-labelledby="offline-intro-title" aria-live="polite" hidden>
+      <span class="offline-intro-icon" aria-hidden="true">↓</span>
+      <div class="offline-intro-copy">
+        <strong id="offline-intro-title">Practice without internet</strong>
+        <p>Save the full AVOP study app on this device for offline use.</p>
+      </div>
+      <div class="offline-intro-actions">
+        <button id="offline-intro-install" class="primary-button" type="button" hidden>Install app</button>
+        <button id="offline-intro-learn" class="secondary-button" type="button">How it works</button>
+        <button id="offline-intro-dismiss" class="text-button" type="button">Got it</button>
+      </div>
+    </aside>
 
     <main id="study-content" class="app-shell">
       <section id="multiple-choice-practice" class="study-section mcq-section" aria-labelledby="mcq-heading">
