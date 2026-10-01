@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="AVOP Study Practice">
+  <rect width="512" height="512" fill="#071c2c"/>
+  <path d="M72 288h368M120 384h272" fill="none" stroke="#f5b82e" stroke-width="48" stroke-linecap="round"/>
+  <path d="M224 80h64v136h88v56H136v-56h88z" fill="#eef7f9"/>
+</svg>

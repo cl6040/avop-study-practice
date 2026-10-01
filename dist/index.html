@@ -4,10 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#071c2c" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="AVOP Study" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; connect-src https://odicron.goatcounter.com; script-src 'self' https://gc.zgo.at/count.v5.js; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://odicron.goatcounter.com; form-action 'none'; upgrade-insecure-requests; require-trusted-types-for 'script'"
+      content="default-src 'self'; base-uri 'none'; object-src 'none'; frame-src 'none'; worker-src 'self'; connect-src https://odicron.goatcounter.com; script-src 'self' https://gc.zgo.at/count.v5.js; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://odicron.goatcounter.com; form-action 'none'; upgrade-insecure-requests; require-trusted-types-for 'script'"
     />
     <meta
       name="description"
@@ -19,7 +22,10 @@
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23071c2c'/%3E%3Cpath d='M9 36h46M15 47h34' stroke='%23f5b82e' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M28 11h8v17h11v7H17v-7h11z' fill='%23eef7f9'/%3E%3C/svg%3E"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="assets/app-icon-192.png" />
     <script src="analytics.js?v=1" defer></script>
+    <script src="offline.js?v=1" defer></script>
     <script
       id="goatcounter-script"
       data-goatcounter="https://odicron.goatcounter.com/count"
@@ -65,6 +71,8 @@
       <button class="section-tab study-tab" type="button" role="tab" aria-selected="false" data-section-target="study">Study</button>
       <button class="section-tab" type="button" role="tab" aria-selected="false" data-section-target="driving"><span class="tab-label-wide">Driving Exam</span><span class="tab-label-compact">Driving</span></button>
     </nav>
+
+    <p id="connection-status" class="connection-status" role="status" hidden></p>
 
     <main id="study-content" class="app-shell">
       <section id="multiple-choice-practice" class="study-section mcq-section" aria-labelledby="mcq-heading">
@@ -362,6 +370,18 @@
           </div>
           <span class="study-badge">Answers shown</span>
         </header>
+
+        <section class="offline-card" aria-labelledby="offline-heading">
+          <div>
+            <p class="step">OFFLINE ACCESS</p>
+            <h2 id="offline-heading">Install for offline practice</h2>
+            <p id="offline-help">Install this app while online to keep the quizzes, pictures, maps, Study section, and Driving Exam available without internet.</p>
+          </div>
+          <div class="offline-actions">
+            <span id="offline-cache-status" class="state-pill" role="status">Preparing offline access…</span>
+            <button id="install-app" class="primary-button" type="button" hidden>Install app</button>
+          </div>
+        </section>
 
         <nav class="study-jump-nav" aria-label="Study reference sections">
           <a href="#study-pictures">Pictures</a>

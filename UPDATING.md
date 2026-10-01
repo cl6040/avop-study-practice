@@ -21,6 +21,11 @@ A useful request is: “Replace the August 2026 ATD and D map with these files, 
 
 The published asset filenames stay stable. This avoids broken links and lets GitHub Pages update automatically after changes are pushed.
 
+The Pages workflow automatically regenerates `dist/service-worker.js` from every
+file in `dist` before deployment. New or replaced content is therefore included
+in the next offline cache without maintaining a separate asset list. Installed
+users receive the refreshed cache when they next open the app while online.
+
 ## Suggestions submitted through the app
 
 The floating suggestion assistant stores submissions as GitHub Issues. When the

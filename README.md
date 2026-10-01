@@ -10,9 +10,19 @@ A static, responsive one-page study app built from the supplied AVOP materials. 
 - A complete **Study** reference showing all 27 picture labels, all 61 question-bank answers, and both labeled answer maps.
 - A floating suggestion assistant that sends structured question additions and improvement ideas to the GitHub review inbox.
 - Private, cookie-free usage benchmarks for visits, section use, completion rates, score bands, device types, and referrers; no answers or suggestion text are collected.
+- Installable offline support that saves every quiz, picture, map, answer reference, and Driving Exam card after an online visit.
 - A 42-card **Driving Exam** trainer covering all nine Aprons, required definitions, lines and markings, signs, controlled and uncontrolled taxiways, safety rules, and practical-test preparation. Users reveal the ATD answer and save a self-rating on their device.
 
 Multiple-choice answers are scored only after all 25 questions are complete. Incorrect answers can then be reviewed one at a time.
+
+## Offline use
+
+Open the public app once with an internet connection and wait for **Ready for
+offline use** in the Study tab. The browser then keeps the full practice app on
+the device. Installing it from that card or the browser's **Add to Home Screen**
+menu is optional, but provides an app icon and standalone window. Analytics and
+the GitHub suggestion form require a connection; all study activities work
+offline.
 
 ## Preview locally
 

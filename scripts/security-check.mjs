@@ -16,7 +16,7 @@ function report(file, message) {
 }
 
 const textFiles = [
-  ...walk(path.join(root, "dist")).filter((file) => /\.(?:html|js|css|json|svg|txt)$/i.test(file)),
+  ...walk(path.join(root, "dist")).filter((file) => /\.(?:html|js|css|json|webmanifest|svg|txt)$/i.test(file)),
   ...walk(path.join(root, ".github", "workflows")).filter((file) => /\.ya?ml$/i.test(file)),
 ];
 
@@ -50,6 +50,7 @@ const requiredCsp = [
   "default-src 'self'",
   "base-uri 'none'",
   "object-src 'none'",
+  "worker-src 'self'",
   "script-src 'self' https://gc.zgo.at/count.v5.js",
   "connect-src https://odicron.goatcounter.com",
 ];

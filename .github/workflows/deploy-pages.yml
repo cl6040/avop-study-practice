@@ -28,6 +28,10 @@ jobs:
           persist-credentials: false
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+      - name: Generate offline cache
+        run: node scripts/generate-service-worker.mjs
+      - name: Verify offline package
+        run: node scripts/test-offline.mjs
       - name: Upload site
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:

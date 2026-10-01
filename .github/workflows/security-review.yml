@@ -18,6 +18,10 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           persist-credentials: false
+      - name: Regenerate offline cache
+        run: node scripts/generate-service-worker.mjs
+      - name: Verify offline package
+        run: node scripts/test-offline.mjs
       - name: Check JavaScript syntax
         run: find dist scripts \( -name '*.js' -o -name '*.mjs' \) -print0 | sort -z | xargs -0 -n1 node --check
       - name: Run Vibecoder security gate

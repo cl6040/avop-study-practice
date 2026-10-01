@@ -1,15 +1,16 @@
 # Vibecoder Security Review: AVOP Study Practice
 
-**Date:** 2026-09-22  
+**Date:** 2026-09-30
 **Framework:** [Vibecoder Security Review](https://gist.github.com/logicx24/2a491f29bf662d3e04fe1713b1757729)  
 **Scope:** The committed static site, GitHub Pages deployment workflow, and Git history.
 
 ## Summary
 
 The application is a static HTML/CSS/JavaScript site hosted by GitHub Pages. It
-has no backend, accounts, authentication, database, cookies, file uploads, or
-runtime package dependencies. The review found no committed credentials or
-private-key material and no active critical or high-severity vulnerability.
+has no backend, accounts, authentication, database, cookies, or file uploads.
+It uses an integrity-pinned GoatCounter analytics script and a same-origin
+service worker for offline caching. The review found no committed credentials
+or private-key material and no active critical or high-severity vulnerability.
 
 Four hardening findings were corrected:
 
@@ -40,7 +41,9 @@ Issue; the app never receives that identity or credential.
 
 ### User data and privacy - Pass
 
-- No user records or sensitive data are collected by the app.
+- No user records, answer text, map entries, or suggestion text are collected by analytics.
+- GoatCounter receives anonymous visit, device, referrer, section, completion,
+  and score-band events without cookies or a persistent user identifier.
 - Driving-card ratings are stored only in the user's browser and contain card IDs
   plus `mastered`/`practice` values.
 - Suggestion text is sent to GitHub only after the user selects **Continue to
@@ -56,9 +59,10 @@ logging, or environment-dependent backdoor exists.
 The deployed app has no file input, upload handler, storage bucket, or uploaded
 file processor.
 
-### Dependencies and plugins - Pass with platform dependency
+### Dependencies and plugins - Pass with constrained runtime dependency
 
-- The deployed app has no npm, Python, or third-party runtime package.
+- The only third-party runtime script is GoatCounter v5. Its exact URL and
+  SHA-384 integrity hash are enforced in HTML, CSP, and the automated gate.
 - All GitHub Actions are pinned to immutable commit hashes.
 - Deployment permissions remain limited to repository read, Pages write, and the
   OIDC token required by GitHub Pages.
@@ -66,9 +70,11 @@ file processor.
 ### Basic hygiene - Pass with one platform limitation
 
 - Production is served over HTTPS by GitHub Pages.
-- CSP blocks remote scripts, network connections, frames, objects, workers,
-  inline script attributes, and insecure requests. Inline styles remain allowed
-  because map labels and zoom controls calculate positions at runtime.
+- CSP permits only same-origin code, the integrity-pinned GoatCounter script,
+  its exact analytics endpoint, and the same-origin offline service worker.
+  Frames, objects, inline script attributes, and insecure requests remain
+  blocked. Inline styles remain allowed because map labels and zoom controls
+  calculate positions at runtime.
 - GitHub Pages does not support repository-configured HTTP response headers, so
   `frame-ancestors`/`X-Frame-Options` cannot be enforced here. Residual
   clickjacking risk is low because the site has no authentication or sensitive
@@ -103,6 +109,6 @@ node scripts/security-check.mjs
 ## Future review triggers
 
 Repeat the full framework review if the project adds a backend, authentication,
-analytics, a database, file uploads, third-party scripts, payment handling, or an
-AI/LLM integration. Those changes would make currently non-applicable checks part
-of the real attack surface.
+a database, file uploads, another third-party script, payment handling, or an
+AI/LLM integration. Material changes to analytics or offline caching should also
+receive a targeted review.
