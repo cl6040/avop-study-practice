@@ -41,7 +41,7 @@
     <script src="map.js" defer></script>
     <script src="da-map.js?v=august-2026" defer></script>
     <script src="study.js?v=2" defer></script>
-    <script src="driving.js?v=2" defer></script>
+    <script src="driving.js?v=3" defer></script>
     <script src="suggestions.js" defer></script>
     <title>AVOP Study Practice</title>
   </head>
@@ -464,7 +464,7 @@
         <div class="driving-shell">
           <header class="driving-hero">
             <div>
-              <p class="step">D/A PRACTICAL PREP · 42 CARDS</p>
+              <p class="step">D/A PRACTICAL PREP · 50 CARDS</p>
               <h2 id="driving-heading">Driving Exam trainer</h2>
               <p>Say or point out your answer as if an examiner asked you in the vehicle. Reveal the ATD answer, then rate yourself.</p>
             </div>
@@ -474,8 +474,23 @@
             </div>
           </header>
 
+          <section class="driving-field-note" aria-labelledby="driving-field-note-heading">
+            <div class="driving-field-note-copy">
+              <p class="step">NEW · RECENT CANDIDATE EXPERIENCE</p>
+              <h3 id="driving-field-note-heading">Rehearse a realistic practical-exam sequence</h3>
+              <p>Eight firsthand prompts covering entry requirements, taxiways, critical markings and safe decision-making. Every factual answer is checked against the August 2026 ATD; actual exams may vary.</p>
+            </div>
+            <div class="driving-observation-list" aria-label="Behaviours the examiner may observe">
+              <span>Scan continuously</span>
+              <span>Control your speed</span>
+              <span>Explain safe decisions</span>
+            </div>
+            <button id="driving-recent-start" class="primary-button" type="button">Start recent exam practice</button>
+          </section>
+
           <div id="driving-categories" class="driving-categories" role="tablist" aria-label="Driving exam topics">
-            <button class="active" type="button" role="tab" aria-selected="true" data-driving-category="all">All 42</button>
+            <button class="active" type="button" role="tab" aria-selected="true" data-driving-category="all">All 50</button>
+            <button type="button" role="tab" aria-selected="false" data-driving-category="recent">Recent exam</button>
             <button type="button" role="tab" aria-selected="false" data-driving-category="aprons">Aprons</button>
             <button type="button" role="tab" aria-selected="false" data-driving-category="definitions">Definitions</button>
             <button type="button" role="tab" aria-selected="false" data-driving-category="markings">Lines</button>
@@ -499,7 +514,7 @@
             <button id="driving-reveal" class="primary-button driving-reveal" type="button">Reveal ATD answer</button>
 
             <section id="driving-answer" class="driving-answer" aria-live="polite" hidden>
-              <div class="driving-answer-heading"><span>ATD ANSWER</span><span id="driving-source"></span></div>
+              <div class="driving-answer-heading"><span id="driving-answer-label">ATD ANSWER</span><span id="driving-source"></span></div>
               <div id="driving-answer-content"></div>
               <figure id="driving-answer-figure" class="driving-answer-figure" hidden>
                 <img id="driving-answer-image" alt="" draggable="false" />

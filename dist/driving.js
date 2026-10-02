@@ -46,6 +46,15 @@ const DRIVING_BANK = [
   { id: "safe-aircraft-distance", category: "safety", title: "Distance from aircraft", prompt: "Unless servicing an aircraft, how far away must you remain?", answer: ["At least 7.5 m (25 ft). Do not drive under the aircraft's wings or tail."], source: "ATD p. 42" },
   { id: "safe-stop-bar", category: "safety", title: "Illuminated stop bar", prompt: "When may you cross an illuminated runway stop bar?", answer: ["Never. Pedestrians, vehicles and aircraft are prohibited from crossing a lit stop bar.", "During low visibility, ATC clearance is required and the stop bar must also be switched off."], source: "ATD p. 35" },
   { id: "safe-emergency", category: "safety", title: "Emergency vehicle approaching", prompt: "What must you do when an emergency vehicle approaches with lights and/or sirens?", answer: ["Yield and safely move out of its path without impeding it.", "Emergency vehicles include YVR Fire & Rescue, Operations, BC Ambulance, Richmond Fire Rescue, RCMP and YVR Security."], source: "ATD p. 43" },
+
+  { id: "recent-entry", category: "recent", title: "Before entering airside", prompt: "The examiner asks: What two visible access and safety items are required when entering airside?", answer: ["A valid RAIC, clearly visible and worn above the waist.", "An airside safety vest or other compliant high-visibility clothing.", "For the practical test, also bring government-issued photo ID/driver's licence. D AVOP candidates also require their ROC-A licence."], answerLabel: "VERIFIED PRACTICE ANSWER", source: "Recent candidate experience; ATD pp. 9, 43, 93" },
+  { id: "recent-taxiways", category: "recent", title: "Taxiways on a clear day", prompt: "Name the uncontrolled taxiways and the controlled taxiways with vehicle-corridor crossings that a D/A driver may cross under normal operating and weather conditions.", answer: ["10 uncontrolled taxiways: Q, DR, DS, DT, DU, DV, DW, DY, F and C.", "8 controlled taxiway crossings: P, T, R, K, S, J, V and H.", "Q is uncontrolled only south of Canadian Service Road; C is uncontrolled only south of Taxiway F. During low visibility, the eight controlled crossings require a D AVOP and ATC clearance. Aircraft always have right-of-way."], answerLabel: "VERIFIED PRACTICE ANSWER", source: "Recent candidate experience; ATD p. 29" },
+  { id: "recent-mad", category: "recent", title: "Describe a MAD line", prompt: "The examiner points to a MAD line. Describe what it looks like, what it separates and the crossing rule.", answer: ["The Manoeuvring Area Delimitation line is one solid and one dashed yellow line on a black background.", "It separates an uncontrolled surface from a controlled surface. The solid line is on the uncontrolled side and the dashed line is on the controlled side.", "Do not cross the solid line without a D AVOP and ATC clearance."], answerLabel: "VERIFIED PRACTICE ANSWER", source: "Recent candidate experience; ATD p. 31" },
+  { id: "recent-runway-hold", category: "recent", title: "Describe a runway holding line", prompt: "The examiner points to a runway holding position marking. Describe it and explain what the lines mean.", answer: ["It consists of two solid and two dashed yellow lines, co-located with mandatory instruction signs.", "The solid lines are on the taxiway side and the dashed lines are on the runway side.", "Hold on the taxiway side unless ATC has cleared you to enter the runway."], answerLabel: "VERIFIED PRACTICE ANSWER", source: "Recent candidate experience; ATD pp. 34-35" },
+  { id: "recent-stop-bar", category: "recent", title: "Describe a runway stop bar", prompt: "What is a runway stop bar, what does it protect and when may you cross it?", answer: ["A stop bar is a single row of red inset lights at a runway holding position marking.", "It protects entry to Runways 08L/26R and 08R/26L during low-visibility operations.", "Never cross an illuminated stop bar. During low visibility, you need ATC clearance and the stop bar must be turned off before crossing."], answerLabel: "VERIFIED PRACTICE ANSWER", source: "Recent candidate experience; ATD pp. 35, 79" },
+  { id: "recent-safe-driving", category: "recent", title: "Show that you are a safe driver", prompt: "What behaviours should the examiner be able to observe throughout your practical drive?", answer: ["Continuously scan for aircraft, pedestrians, vehicles, markings, changing hazards and traffic approaching from every relevant direction.", "Maintain the posted or appropriate lower speed for the conditions, stop where required, wear the seatbelt and never rush because of operational pressure.", "Protect right-of-way, keep safe distances and make conservative decisions whenever conditions are uncertain."], answerLabel: "PRACTICAL COACHING", source: "Recent candidate experience; ATD pp. 16, 18, 41-43, 93" },
+  { id: "recent-grey-pushback", category: "recent", title: "Grey-area pushback decision", prompt: "An aircraft may not look fully ready to push, but its tug is connected and bridge is retracted. Explain what you would do and why.", answer: ["Stop or yield and reassess. Not every pushback indicator will be present, so uncertainty must be resolved in favour of the aircraft.", "Scan for removed wheel chocks, illuminated anti-collision lights, wing walkers, a connected tug, a retracted bridge and ground-service vehicles moving away.", "Do not manoeuvre around or drive past until the anti-collision beacon is off and you are satisfied that no further aircraft movement is occurring."], answerLabel: "VERIFIED PRACTICE ANSWER", source: "Recent candidate experience; ATD pp. 41-42" },
+  { id: "recent-think-aloud", category: "recent", title: "Voice your decision process", prompt: "In an uncertain situation, how can you show the examiner that your decision is deliberate and safe?", answer: ["State what you observe, identify the relevant hazard or rule, and clearly explain the conservative action you are taking.", "Example: 'The tug is connected and the bridge is retracted. I cannot confirm the aircraft is stationary, so I am stopping and yielding until the situation is clear.'", "Confidence means applying the rule calmly and asking or reconfirming when necessary - never making an assumption."], answerLabel: "PRACTICAL COACHING", source: "Recent candidate experience; ATD pp. 42, 72, 93" },
 ];
 
 const DRIVING_CATEGORY_LABELS = {
@@ -56,6 +65,7 @@ const DRIVING_CATEGORY_LABELS = {
   signs: "Signs",
   taxiways: "Taxiways",
   safety: "Safety & test day",
+  recent: "Recent exam practice",
 };
 
 const DRIVING_STORAGE_KEY = "avop-driving-progress-v1";
@@ -63,6 +73,7 @@ const drivingState = { category: "all", order: [], current: 0, ratings: new Map(
 
 const drivingElements = {
   answer: document.querySelector("#driving-answer"),
+  answerLabel: document.querySelector("#driving-answer-label"),
   answerContent: document.querySelector("#driving-answer-content"),
   answerFigure: document.querySelector("#driving-answer-figure"),
   answerImage: document.querySelector("#driving-answer-image"),
@@ -81,6 +92,7 @@ const drivingElements = {
   questionImage: document.querySelector("#driving-question-image"),
   reveal: document.querySelector("#driving-reveal"),
   reviewed: document.querySelector("#driving-reviewed"),
+  recentStart: document.querySelector("#driving-recent-start"),
   source: document.querySelector("#driving-source"),
   title: document.querySelector("#driving-card-title"),
 };
@@ -148,6 +160,12 @@ function renderDrivingCard({ focus = false } = {}) {
   drivingElements.title.textContent = card.title;
   drivingElements.prompt.textContent = card.prompt;
   drivingElements.source.textContent = card.source;
+  drivingElements.answerLabel.textContent = card.answerLabel || "ATD ANSWER";
+  drivingElements.reveal.textContent = card.answerLabel === "PRACTICAL COACHING"
+    ? "Reveal coaching guidance"
+    : card.answerLabel
+      ? "Reveal verified answer"
+      : "Reveal ATD answer";
   drivingElements.answer.hidden = true;
   drivingElements.reveal.hidden = false;
   drivingElements.gotIt.classList.toggle("selected", drivingState.ratings.get(card.id) === "mastered");
@@ -214,6 +232,7 @@ drivingElements.categories.addEventListener("click", (event) => {
   const button = event.target.closest("[data-driving-category]");
   if (button) setDrivingCategory(button.dataset.drivingCategory);
 });
+drivingElements.recentStart.addEventListener("click", () => setDrivingCategory("recent"));
 drivingElements.reveal.addEventListener("click", revealDrivingAnswer);
 drivingElements.gotIt.addEventListener("click", () => rateDrivingCard("mastered"));
 drivingElements.practiceAgain.addEventListener("click", () => rateDrivingCard("practice"));
