@@ -25,7 +25,7 @@
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="apple-touch-icon" href="assets/app-icon-192.png" />
     <script src="analytics.js?v=1" defer></script>
-    <script src="offline.js?v=2" defer></script>
+    <script src="offline.js?v=3" defer></script>
     <script
       id="goatcounter-script"
       data-goatcounter="https://odicron.goatcounter.com/count"
@@ -85,6 +85,27 @@
         <button id="offline-intro-dismiss" class="text-button" type="button">Got it</button>
       </div>
     </aside>
+
+    <div id="ios-install-modal" class="install-modal" hidden>
+      <button class="install-modal-backdrop" type="button" aria-label="Close iPhone installation instructions"></button>
+      <section class="install-sheet" role="dialog" aria-modal="true" aria-labelledby="ios-install-title" aria-describedby="ios-install-summary">
+        <div class="install-sheet-heading">
+          <div>
+            <p class="step">IPHONE INSTALLATION</p>
+            <h2 id="ios-install-title">Add AVOP Study to your Home Screen</h2>
+          </div>
+          <button id="ios-install-close" class="install-close" type="button" aria-label="Close">×</button>
+        </div>
+        <p id="ios-install-summary">Apple installs web apps through Safari's Share menu instead of an automatic install prompt.</p>
+        <ol class="ios-install-steps">
+          <li id="ios-safari-step" class="ios-safari-step"><span>1</span><div><strong>Open this page in Safari</strong><p>If you are in Chrome, Facebook, Messages, or another in-app browser, copy the link and open it in Safari.</p></div></li>
+          <li><span>2</span><div><strong>Tap Safari's Share button</strong><p>Look for the square with an upward arrow at the bottom of the screen.</p></div></li>
+          <li><span>3</span><div><strong>Tap Add to Home Screen</strong><p>Scroll down in the Share menu. If it is missing, tap Edit Actions and add it.</p></div></li>
+          <li><span>4</span><div><strong>Turn on Open as Web App, then tap Add</strong><p>Launch AVOP Study from the new Home Screen icon. The saved practice content will work offline.</p></div></li>
+        </ol>
+        <button id="ios-install-done" class="primary-button install-done" type="button">Got it</button>
+      </section>
+    </div>
 
     <main id="study-content" class="app-shell">
       <section id="multiple-choice-practice" class="study-section mcq-section" aria-labelledby="mcq-heading">

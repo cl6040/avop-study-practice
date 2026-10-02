@@ -7,8 +7,25 @@
   const introInstallButton = document.querySelector("#offline-intro-install");
   const introLearnButton = document.querySelector("#offline-intro-learn");
   const introDismissButton = document.querySelector("#offline-intro-dismiss");
-  const noticeKey = "avop-offline-notice-seen-v1";
+  const iosInstallModal = document.querySelector("#ios-install-modal");
+  const iosSafariStep = document.querySelector("#ios-safari-step");
+  const iosInstallClose = document.querySelector("#ios-install-close");
+  const iosInstallDone = document.querySelector("#ios-install-done");
+  const iosInstallBackdrop = document.querySelector(".install-modal-backdrop");
+  const noticeKey = "avop-offline-notice-seen-v2";
   let installPrompt = null;
+  let modalReturnFocus = null;
+
+  function isIOS() {
+    const userAgent = window.navigator.userAgent;
+    return /iphone|ipad|ipod/i.test(userAgent)
+      || (/macintosh/i.test(userAgent) && window.navigator.maxTouchPoints > 1);
+  }
+
+  function isIOSSafari() {
+    const userAgent = window.navigator.userAgent;
+    return isIOS() && /version\/[\d.]+.*safari/i.test(userAgent) && !/crios|fxios|edgios|opios|duckduckgo/i.test(userAgent);
+  }
 
   function hasSeenIntro() {
     try { return window.localStorage.getItem(noticeKey) === "1"; } catch (_error) { return false; }
@@ -26,8 +43,25 @@
   function showIntro() {
     if (isInstalled() || hasSeenIntro()) return;
     intro.hidden = false;
-    introInstallButton.hidden = !installPrompt;
+    introInstallButton.hidden = !(isIOS() || installPrompt);
+    introInstallButton.textContent = isIOS() ? "Install on iPhone" : "Install app";
     window.avopAnalytics?.event("offline-notice-shown", "Offline notice shown");
+  }
+
+  function openIOSInstallGuide(button) {
+    modalReturnFocus = button;
+    hideIntro();
+    iosSafariStep.hidden = isIOSSafari();
+    iosInstallModal.hidden = false;
+    document.body.classList.add("install-guide-open");
+    iosInstallClose.focus();
+    window.avopAnalytics?.event("ios-install-guide-opened", "iPhone install instructions opened");
+  }
+
+  function closeIOSInstallGuide() {
+    iosInstallModal.hidden = true;
+    document.body.classList.remove("install-guide-open");
+    modalReturnFocus?.focus();
   }
 
   function isInstalled() {
@@ -46,10 +80,13 @@
       help.textContent = "Installed on this device. Open it once after each published update to refresh the saved content.";
       return;
     }
-    const isiOS = /iphone|ipad|ipod/i.test(window.navigator.userAgent);
-    help.textContent = isiOS
-      ? "Once the status says Ready, this browser can practice offline. On iPhone or iPad, use Share → Add to Home Screen for an app icon."
+    help.textContent = isIOS()
+      ? "iPhone installs web apps through Safari's Share menu. Tap Install on iPhone for the exact steps."
       : "Once the status says Ready, this browser can practice offline. Use Install app below, or your browser menu, to add an app icon.";
+    if (isIOS()) {
+      installButton.hidden = false;
+      installButton.textContent = "Install on iPhone";
+    }
   }
 
   window.addEventListener("online", updateConnectionStatus);
@@ -80,8 +117,14 @@
     }
   }
 
-  installButton.addEventListener("click", () => promptInstall(installButton));
-  introInstallButton.addEventListener("click", () => promptInstall(introInstallButton));
+  installButton.addEventListener("click", () => isIOS() ? openIOSInstallGuide(installButton) : promptInstall(installButton));
+  introInstallButton.addEventListener("click", () => isIOS() ? openIOSInstallGuide(introInstallButton) : promptInstall(introInstallButton));
+  iosInstallClose.addEventListener("click", closeIOSInstallGuide);
+  iosInstallDone.addEventListener("click", closeIOSInstallGuide);
+  iosInstallBackdrop.addEventListener("click", closeIOSInstallGuide);
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !iosInstallModal.hidden) closeIOSInstallGuide();
+  });
   introDismissButton.addEventListener("click", () => {
     hideIntro();
     window.avopAnalytics?.event("offline-notice-dismissed", "Offline notice acknowledged");
